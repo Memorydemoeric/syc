@@ -1,0 +1,92 @@
+{% extends 'base_main.html' %}
+{% load static %}
+
+{% block ex_css %}
+    <link rel="stylesheet" href="{% static 'css/storage_in.css' %}">
+{% endblock %}
+
+{% block ex_js %}
+    <script type="text/javascript" src="{% static 'js/storage_in_product.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap_confirm.js' %}"></script>
+{% endblock %}
+
+{% block header %}
+
+    <nav class="col-xs-2 col-md-1 navbar navbar-default" id="main_navigate">
+        <div class="container-fluid">
+            <ul class="nav nav-pills nav-stacked">
+                <!-- 这里的active属性就是使得所在的li的背景色变为蓝色-->
+                <li><a href="/plan/create_plan/">生产管理</a></li>
+                <li><a href="/purchase/">销售管理</a></li>
+                <li><a href="/storage/">库存管理</a></li>
+                <li class="active"><a href="/report/">报表管理</a></li>
+                <li><a href="/info/">基本资料</a></li>
+                <li><a href="/system/">系统维护</a></li>
+            </ul>
+        </div>
+    </nav>
+{% endblock %}
+
+{% block body %}
+    <nav class="row col-md-2 col-xs-2 navbar" id="type_selice">
+        <ul class="nav nav-pills">
+            <li role="presentation" style="margin: 0">
+                <a href="/report/report_storage_in_product/">成品</a>
+            </li>
+            <li role="presentation" style="margin: 0" class="active">
+                <a href="/report/report_storage_in_half/">半成品</a>
+            </li>
+        </ul>
+    </nav>
+
+    <section class="row col-md-7 col-xs-7" id="search_menu">
+        <div class="form-inline" id="search_menu_start_date">
+            <div class="form-group" id="start_time_group">
+                <input type="text" value="half" id="select_type">
+                <label for="start_time">时间:</label>
+                <input class="form-control" type="date" placeholder="请输入起始时间" id="start_time" value="{{ start_time }}">
+            </div>
+            <div class="form-group" id="end_time_group">
+                <label for="end_time">至</label>
+                <input class="form-control" type="date" placeholder="请输入结束时间" id="end_time" value="{{ end_time }}">
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-primary" id="search_date_submit">查询</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="row col-md-9 col-xs-9">
+        <table class="table table-striped" id="storage_in_detail_head">
+            <thead>
+            <th></th>
+            <th width="120px">编号</th>
+            <th width="200px">时间</th>
+            <th width="120px">数量</th>
+            <th width="200px">操作</th>
+            <th></th>
+            </thead>
+        </table>
+    </section>
+
+    <section class="row col-md-9 col-xs-9" id="storage_in_detail_body_section">
+        <table class="table table-striped" id="storage_in_detail_body">
+            <tbody class="action_warning">
+            {% for foo in storage_in_infos %}
+                <tr storage_in_id="{{ foo.id }}">
+                    <td></td>
+                    <td width="120px">{{ foo.id }}</td>
+                    <td width="200px">{{ foo.in_date|date }}</td>
+                    <td width="120px">{{ foo.in_total_count|floatformat:0 }}</td>
+                    <td width="200px"><span><a href="/report/report_storage_in_half_detail/?storage_in_id={{ foo.id }}"
+                                               target="_blank">详情</a></span>&nbsp;&nbsp;|&nbsp;&nbsp;<span><a href=""
+                                                                                                              class="storage_in_recover">撤销</a></span>
+                    </td>
+                    <td></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </section>
+{% endblock %}

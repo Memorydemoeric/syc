@@ -1,0 +1,129 @@
+{% extends 'base_main.html' %}
+{% load static %}
+
+{% block ex_css %}
+    <link rel="stylesheet" href="{% static 'css/receipt_income.css' %}">
+{% endblock %}
+
+{% block ex_js %}
+    <script type="text/javascript" src="{% static 'js/bootstrap_confirm.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/receipt_income.js' %}"></script>
+{% endblock %}
+
+{% block header %}
+    <nav class="col-md-1  navbar navbar-default" id="main_navigate">
+        <div class="container-fluid">
+            <ul class="nav nav-pills nav-stacked">
+                <!-- 这里的active属性就是使得所在的li的背景色变为蓝色-->
+                <li><a href="/plan/create_plan/">生产管理</a></li>
+                <li class="active"><a href="/purchase/">销售管理</a></li>
+                <li><a href="/storage/">库存管理</a></li>
+                <li><a href="/report/">报表管理</a></li>
+                <li><a href="/info/">基本资料</a></li>
+                <li><a href="/system/">系统维护</a></li>
+            </ul>
+        </div>
+    </nav>
+{% endblock %}
+
+
+{% block body %}
+    <section class="col-md-9" id="receipt_cust_detail_list_title_section">
+        <table class="table table-striped">
+            <thead>
+            <th></th>
+            <th width="40px"></th>
+            <th width="130px">订单编号</th>
+            <th width="130px">数量</th>
+            <th width="130px">金额&nbsp;(运费)</th>
+            <th width="250px">备注</th>
+            <th></th>
+            </thead>
+        </table>
+    </section>
+
+    <section class="col-md-9" id="receipt_cust_detail_list_body_section">
+        <table class="table table-striped">
+            <tbody class="action_warning">
+
+
+            {% for foo in infos %}
+                {% if not foo.pur_id %}
+                    <tr>
+                        <td></td>
+                        <td width="40px" pur_id="{{ foo.id }}"><input type="checkbox"></td>
+                        <td width="130px">{{ foo.id }}</td>
+                        <td width="130px">{{ foo.count }}</td>
+                        <td width="150px">{{ foo.actual_price|floatformat:2 }}&nbsp;({{ foo.predict_freight }})</td>
+                        <td width="250px">{{ foo.pur_comment }}</td>
+                        <td></td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td></td>
+                        <td width="40px" pur_id="{{ foo.pur_id }}"><input type="checkbox"></td>
+                        <td width="130px">{{ foo.pur_id }}</td>
+                        <td width="130px">{{ foo.total_count }}</td>
+                        <td width="150px">{{ foo.storage_actual_price|floatformat:2 }}&nbsp;({{ foo.translation_expense }})</td>
+                        <td width="250px">{{ foo.pur_comment }}</td>
+                        <td></td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+
+
+            </tbody>
+        </table>
+    </section>
+
+
+    <section class="col-md-9" id="receipt_cust_detail_list_foot_section">
+        <table class="table table-striped">
+            <tfoot>
+            <th></th>
+            <th width="40px"></th>
+            <th width="130px">合计:</th>
+            <th width="130px"><span id="total_count">0</span></th>
+            <th width="150px"><span id="total_actual_price">0</span></th>
+            <th width="250px"></th>
+            <th></th>
+            </tfoot>
+        </table>
+    </section>
+
+
+    <section class="col-md-10" id="point_customer">
+        <form action="" class="col-md-12 form-inline" method="post" id="receipt_cust_info_form">
+            <div class="form-group">
+                <table id="receipt_cust_info">
+                    <tbody>
+                    <tr>
+                        <td width="50%">地区：{{ cust_info.cust_info.cust_location }}</td>
+                        <td width="50%">客户名：{{ cust_info.cust_info.cust_name }}</td>
+                    </tr>
+                    <tr>
+                        <td>余额：
+                            {% if cust_info.balance <= 0 %}
+                                <span style="color: red">{{ cust_info.balance|floatformat:2 }}</span>
+                            {% else %}
+                                <span style="color: green">{{ cust_info.balance|floatformat:2 }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <label for="cust_condition">收款金额：</label>
+                <input cust_id="{{ cust_info.cust_id }}" class="form-control" type="number" id="income" name="income"
+                       placeholder="请输入收款金额">&nbsp;&nbsp;&nbsp;&nbsp;
+                <div>
+                    </br>
+                    <button type="button" class="btn btn-primary" id="receipt_submit">确定</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <button type="reset" class="btn btn-primary">重置</button>
+                </div>
+            </div>
+
+        </form>
+    </section>
+
+
+{% endblock %}

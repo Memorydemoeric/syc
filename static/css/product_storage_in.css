@@ -1,0 +1,44 @@
+td, th {
+    text-align: center;
+}
+
+#storage_in {
+    margin: 4rem 2rem;
+}
+
+#storage_in_title {
+    margin: 0 2rem;
+    padding: 0 2rem;
+    height: 4rem;
+}
+
+#storage_in_detail {
+    margin: 0 2rem;
+    padding: 0 2rem;
+    height: 45rem;
+    width: 76%;
+    overflow-y: scroll;
+}
+
+#clear_storage_in, #submit_storage_in {
+    margin: 0 2rem;
+}
+
+.del_pro, .modify_count {
+    cursor: pointer;
+    color: #337ab9;
+}
+
+.del_pro:hover, .modify_count:hover {
+    color: #337ab9;
+    cursor: pointer;
+    text-decoration-line: underline;
+}
+
+#operate_storage_in {
+    text-align: center;
+}
+
+section table .storage_in_modify .tr_selected {
+    background: #a3cfff;
+}

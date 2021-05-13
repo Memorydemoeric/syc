@@ -1,0 +1,147 @@
+{% extends 'base_main.html' %}
+{% load static %}
+
+{% block ex_css %}
+    <link rel="stylesheet" href="{% static 'css/report_statement_detail.css' %}">
+{% endblock %}
+
+{% block ex_js %}
+    <script type="text/javascript" src="{% static 'js/report_statement_detail.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap_confirm.js' %}"></script>
+{% endblock %}
+
+{% block header %}
+    <nav class="col-md-1  navbar navbar-default" id="main_navigate">
+        <div class="container-fluid">
+            <ul class="nav nav-pills nav-stacked">
+                <!-- 这里的active属性就是使得所在的li的背景色变为蓝色-->
+                <li><a href="/plan/create_plan/">生产管理</a></li>
+                <li><a href="/purchase/">销售管理</a></li>
+                <li><a href="/storage/">库存管理</a></li>
+                <li class="active"><a href="/report/">报表管理</a></li>
+                <li><a href="/info/">基本资料</a></li>
+                <li><a href="/system/">系统维护</a></li>
+            </ul>
+        </div>
+    </nav>
+
+{% endblock %}
+
+{% block body %}
+
+    <section class="col-md-5" id="statement_report_info_section">
+        <table id="statement_report_info">
+            <tr>
+                <td>客户编号：{{ cust_info.cust_id }}</td>
+            </tr>
+            <tr>
+                <td>地区：{{ cust_info.cust_info.cust_location }}</td>
+            </tr>
+            <tr>
+                <td>客户姓名：{{ cust_info.cust_info.cust_name }}</td>
+            </tr>
+            <tr>
+                <td>当前余额：{{ cust_info.balance|floatformat:2 }}</td>
+            </tr>
+
+        </table>
+    </section>
+
+    <section class="col-md-9" id="statement_detail_title">
+        <table class="table table-striped" id="statement_detail_head">
+            <thead>
+            <th width="20%">日期</th>
+            <th width="10%">类型</th>
+            <th width="15%">金额变动</th>
+            <th width="15%">余额</th>
+            <th width="10%">订单编号</th>
+            <th width="30%">操作</th>
+            </thead>
+        </table>
+    </section>
+
+
+    <section class="col-md-9" id="statement_detail">
+        <table class="table table-striped" id="storage_detail_body">
+            <tbody>
+            {% for foo in statement_detail %}
+                {% if foo.flow_type == 'O' %}
+                    <tr class="alert alert-danger" role="alert">
+                        <td width="20%">{{ foo.flow_date|date:'Y-m-d H:i:s' }}</td>
+                        <td width="10%">发货</td>
+                        <td width="15%">- {{ foo.cash_change|floatformat:2 }}</td>
+                        <td width="15%">{{ foo.balance|floatformat:2 }}</td>
+                        <td width="10%">{{ foo.pur_id }}</td>
+                        <td width="30%"><a href="/report/report_storage_out_detail/?order_id={{ foo.pur_id }}"
+                                           target="_blank"><span>订单详情</span></a><span>&nbsp;&nbsp;|&nbsp;&nbsp;</span><a
+                                href="/report/report_statement_output/?cust_id={{ foo.cust_id }}&pur_id={{ foo.pur_id }}"
+                                target="_blank">导出对账单</a></td>
+                    </tr>
+
+                {% elif foo.flow_type == 'I' %}
+                    <tr class="alert alert-success" role="alert" id="income_{{ foo.pur_id }}">
+                        <td width="20%">{{ foo.flow_date|date:'Y-m-d H:i:s' }}</td>
+                        <td width="10%">货款
+                            {% if foo.balance < 0 %}
+                                *
+                            {% endif %}</td>
+                        <td width="15%" class="income" pur_id="{{ foo.pur_id }}">+ {{ foo.cash_change|floatformat:2 }}</td>
+                        <td width="15%">{{ foo.balance|floatformat:2 }}</td>
+                        {% if foo.pur_id %}
+                            <td width="10%">{{ foo.pur_id }}</td>
+                        {% else %}
+                            <td width="10%"></td>
+                        {% endif %}
+                        <td width="30%"><a href="/report/report_storage_out_detail/?order_id={{ foo.pur_id }}"
+                                           target="_blank"><span>订单详情</span></a><span></td>
+                        </td>
+                    </tr>
+
+
+                {% elif foo.flow_type == 'B' %}
+                    <tr class="alert alert-info" role="alert">
+                        <td width="20%">{{ foo.flow_date|date:'Y-m-d H:i:s' }}</td>
+                        <td width="10%">退货</td>
+                        <td width="15%">+ {{ foo.cash_change|floatformat:2 }}</td>
+                        <td width="15%">{{ foo.balance|floatformat:2 }}</td>
+                        <td width="10%"></td>
+                        <td width="30%"><a href="/report/report_refund_detail/?refund_id={{ foo.ref_pur_id }}"
+                                           target="_blank"><span>退货详情</span></a></td>
+                    </tr>
+
+                {% elif foo.flow_type == 'C' %}
+                    <tr class="alert alert-info" role="alert">
+                        <td width="20%">{{ foo.flow_date|date:'Y-m-d H:i:s' }}</td>
+                        <td width="10%">订单调整</td>
+                        {% if foo.cash_change < 0 %}
+                            <td width="15%"><span class="minus_change">{{ foo.cash_change|floatformat:2 }}</span></td>
+
+                        {% else %}
+                            <td width="15%">+ <span>{{ foo.cash_change|floatformat:2 }}</span>
+                            </td>
+                        {% endif %}
+                        <td width="15%">{{ foo.balance|floatformat:2 }}</td>
+                        <td width="10%">{{ foo.pur_id }}</td>
+                        <td width="30%"></td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+    <section class="col-md-9" id="statement_detail_footer">
+        <table class="table table-striped">
+            <tfoot>
+            <th>
+                <button class="btn btn-primary" style="margin: 1rem;" id="close_window">关闭窗口</button>
+            </th>
+            </tfoot>
+        </table>
+    </section>
+
+
+
+
+
+{% endblock %}

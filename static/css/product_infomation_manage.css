@@ -1,0 +1,47 @@
+td, th {
+    text-align: center;
+}
+
+#add_product {
+    margin: 0 2rem;
+    float: right;
+    position: relative;
+    right: 20%;
+}
+
+#storage_detail_submit {
+    margin: 0 1rem;
+}
+
+#product_detail_title {
+    margin: 0 2rem;
+    padding: 0 2rem;
+    height: 4rem;
+}
+
+#product_detail {
+    margin: 0 2rem;
+    padding: 0 2rem;
+    height: 50rem;
+    width: 76%;
+    overflow-y: scroll;
+}
+
+.edit_product_detail,.delete_product_detail {
+    cursor: pointer;
+    color: #337ab9;
+}
+
+.edit_storage_detail:hover {
+    color: #337ab9;
+    cursor: pointer;
+    text-decoration-line: underline;
+}
+
+#product_detail_footer th {
+    text-align: right;
+}
+
+.ctr_btn {
+    margin: 0 0.5rem;
+}

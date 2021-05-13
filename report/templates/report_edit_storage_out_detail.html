@@ -1,0 +1,111 @@
+{% extends 'base_main.html' %}
+{% load static %}
+
+{% block ex_css %}
+    <link rel="stylesheet" href="{% static 'css/report_edit_storage_out_detail.css' %}">
+{% endblock %}
+
+{% block ex_js %}
+    <script type="text/javascript" src="{% static 'js/report_edit_storage_out_detail.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap_confirm.js' %}"></script>
+{% endblock %}
+
+{% block header %}
+    <nav class="col-md-1  navbar navbar-default" id="main_navigate">
+        <div class="container-fluid">
+            <ul class="nav nav-pills nav-stacked">
+                <!-- 这里的active属性就是使得所在的li的背景色变为蓝色-->
+                <li><a href="/plan/create_plan/">生产管理</a></li>
+                <li><a href="/purchase/">销售管理</a></li>
+                <li><a href="/storage/">库存管理</a></li>
+                <li class="active"><a href="/report/">报表管理</a></li>
+                <li><a href="/info/">基本资料</a></li>
+                <li><a href="/system/">系统维护</a></li>
+            </ul>
+        </div>
+    </nav>
+
+{% endblock %}
+
+{% block body %}
+
+    <section class="col-md-4" id="storage_report_info_section" pur_id="{{ storage_out.pur_id }}">
+        <table id="storage_report_info">
+            <tr>
+                <td width="120px">订单编号：{{ storage_out_order_info.pur_id }}</td>
+                <td width="200px">订单日期：{{ storage_out_order_info.storage_create_date|date }}</td>
+                <td width="150px"></td>
+            </tr>
+            <tr>
+                <td width="120px">地区：{{ storage_out_order_info.cust_info.cust_location }}</td>
+                <td width="200px">客户姓名：{{ storage_out_order_info.cust_info.cust_name }}</td>
+                <td width="150px">提货金额：<span id="storage_actual_price">{{ storage_out_order_info.storage_actual_price|floatformat:2 }}</span></td>
+            </tr>
+        </table>
+    </section>
+
+    <section class="col-md-4 form-inline" id="add_report_detail_section">
+        <div class="form-group">
+            <label for="pro_id">产品编号：</label>
+            <input class="form-control" type="text" id="report_pro_id">&nbsp;&nbsp;&nbsp;&nbsp;
+            <label for="pro_count">数量：</label>
+            <input class="form-control" type="number" id="report_pro_count">&nbsp;&nbsp;&nbsp;&nbsp;
+            <button type="button" class="btn btn-primary" id="edit_report_storage_out_detail">修改</button>
+        </div>
+    </section>
+
+    <section class="col-md-9" id="storage_detail_title">
+        <table class="table table-striped" id="pur_order_detail_head">
+            <thead>
+            <th></th>
+            <th width="135px">产品编号</th>
+            <th width="135px">数量</th>
+            <th width="135px">标准零售价</th>
+            <th width="135px">金额</th>
+            <th width="100px">操作</th>
+            <th></th>
+            </thead>
+        </table>
+    </section>
+
+
+    <section class="col-md-9" id="storage_detail" pur_id="{{ storage_out_order_info.pur_id }}">
+        <table class="table table-striped" id="storage_detail_body">
+            <tbody class="action_warning">
+            {% for foo in storage_out_detail %}
+                <tr pro_id="{{ foo.pro_id }}" id="pro_id_{{ foo.pro_id }}">
+                    <th></th>
+                    <td width="135px">{{ foo.pro_id }}</td>
+                    <td width="135px">{{ foo.storage_pro_count|floatformat:0 }}</td>
+                    <td width="135px">{{ foo.storage_unit_price|floatformat:2 }}</td>
+                    <td width="135px">{{ foo.storage_pro_price|floatformat:2 }}</td>
+                    <td width="100px" class="del_storage_detail">删除</td>
+                    <th></th>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+    <section class="col-md-9" id="storage_detail_footer">
+        <table class="table table-striped">
+            <tfoot>
+            <th></th>
+            <th width="135px">合计：</th>
+            <th width="135px"><span id="total_count">{{ storage_out_order_info.total_count|floatformat:0 }}</span></th>
+            <th width="135px"></th>
+            <th width="135px"><span id="price">{{ storage_out_order_info.storage_price|floatformat:2 }}</span></th>
+            <th width="100px"></th>
+            <th></th>
+            </tfoot>
+        </table>
+    </section>
+
+    <section class="col-md-9" id="submit_section">
+        <button type="button" class="btn btn-primary" style="margin: 1rem;" id="statement_detail_submit">完成</button>
+    </section>
+
+
+
+
+{% endblock %}

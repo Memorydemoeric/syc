@@ -1,0 +1,47 @@
+td, th {
+    text-align: center;
+}
+
+#cust_condition {
+    width: 15rem;
+}
+
+#receipt_cust_info {
+    width: 100%;
+}
+
+#receipt_cust_info td {
+    text-align: left;
+    font-weight: 600;
+    padding-bottom: 1rem;
+}
+
+#point_customer {
+    margin-top: 4rem;
+    text-align: center;
+}
+
+#receipt_cust_info_form {
+    margin: 0 0 20% 0;
+}
+
+div.form-group {
+    padding: 4rem;
+    border-style: solid;
+    border-color: #c6c6c6;
+}
+
+#receipt_cust_detail_list_title_section, #receipt_cust_detail_list_foot_section {
+    width: 84%;
+    height: 4rem;
+    padding: 0 2rem;
+    margin: 0 2rem;
+}
+
+#receipt_cust_detail_list_body_section {
+    width: 85%;
+    height: 10rem;
+    padding: 0 2rem;
+    margin: 0 2rem 2rem;
+    overflow-y: scroll;
+}

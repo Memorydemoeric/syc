@@ -1,0 +1,74 @@
+{% extends 'base_main.html' %}
+{% load static %}
+
+{% block ex_css %}
+    <link rel="stylesheet" href="{% static 'css/product_storage_in_confirm.css' %}">
+{% endblock %}
+
+{% block ex_js %}
+    <script type="text/javascript" src="{% static 'js/bootstrap_confirm.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/product_storage_in_confirm.js' %}"></script>
+{% endblock %}
+
+{% block header %}
+    <nav class="col-md-1  navbar navbar-default" id="main_navigate">
+        <div class="container-fluid">
+            <ul class="nav nav-pills nav-stacked">
+                <!-- 这里的active属性就是使得所在的li的背景色变为蓝色-->
+                <li><a href="/plan/create_plan/">生产管理</a></li>
+                <li><a href="/purchase/">销售管理</a></li>
+                <li class="active"><a href="/storage/">库存管理</a></li>
+                <li><a href="/report/">报表管理</a></li>
+                <li><a href="/info/">基本资料</a></li>
+                <li><a href="/system/">系统维护</a></li>
+            </ul>
+        </div>
+    </nav>
+
+{% endblock %}
+
+{% block body %}
+
+    <section class="col-md-9" id="storage_in_title">
+        <table class="table table-striped" id="storage_in_head">
+            <thead>
+            <th width="25%">商品编号</th>
+            <th width="25%">原数量</th>
+            <th width="25%">-></th>
+            <th width="25%">入库后数量</th>
+            </thead>
+        </table>
+    </section>
+
+
+    <section class="col-md-9" id="storage_in_detail">
+        <table class="table table-striped" id="storage_in_body">
+            <tbody class="action_warning">
+            {% for foo in old_info %}
+                <tr>
+                    <td width="15%">{{ foo.pro_id }}</td>
+                    <td width="15%">{{ foo.pro_count|floatformat:0 }}</td>
+                    <td width="15%">{{ foo.in_count|floatformat:0 }}</td>
+                    <td width="15%">{{ foo.new_info|floatformat:0 }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+    <section class="col-md-9" id="storage_in_detail_foot">
+        <table class="table table-striped">
+            <tfoot>
+            <th>
+                <button id="cancel_storage_in" class="btn btn-primary in_confirm">取消</button>
+                <button id="submit_storage_in" class="btn btn-primary in_confirm">确认</button>
+            </th>
+            </tfoot>
+        </table>
+    </section>
+
+
+
+
+
+{% endblock %}

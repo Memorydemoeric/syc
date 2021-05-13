@@ -1,0 +1,38 @@
+table th, td {
+    text-align: center;
+}
+
+#main_navigate {
+    float: left;
+    position: relative;
+    left: 15px;
+}
+
+#cust_rank_title {
+    height: 3rem;
+    width: 74%;
+    float: left;
+}
+
+#cust_rank_body {
+    height: 50rem;
+    overflow-y: scroll;
+}
+
+#search_customer_section {
+    margin: 2rem 0 2rem 0;
+    float: right;
+}
+
+#search_customer_section input {
+    margin-right: 1rem;
+}
+
+label {
+    margin-right: 1rem;
+}
+
+.change_button {
+    color: #337ab9;
+    cursor: pointer;
+}

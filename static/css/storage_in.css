@@ -1,0 +1,44 @@
+table th, td {
+    text-align: center;
+}
+
+#search_menu {
+    float: right;
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+}
+
+#start_time, #end_time {
+    margin-right: 1rem;
+    margin-left: 1rem;
+
+}
+
+#storage_in_detail_head {
+    margin-bottom: 5px;
+    width: 86%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#storage_in_detail_body_section {
+    height: 50rem;
+    overflow-y: scroll;
+}
+
+#storage_in_detail_body {
+    position: relative;
+    left: 0.5%;
+    width: 87%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#type_selice {
+    margin-left: 2rem;
+    margin-top: 2rem;
+}
+
+#select_type {
+    display: none;
+}

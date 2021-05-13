@@ -1,0 +1,75 @@
+{% extends 'base_main.html' %}
+{% load static %}
+
+{% block ex_css %}
+    <link rel="stylesheet" href="{% static 'css/user_info.css' %}">
+{% endblock %}
+
+{% block ex_js %}
+    <script type="text/javascript" src="{% static 'js/user_info.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap_confirm.js' %}"></script>
+{% endblock %}
+
+{% block header %}
+    <nav class="col-md-1  navbar navbar-default" id="main_navigate">
+        <div class="container-fluid">
+            <ul class="nav nav-pills nav-stacked">
+                <!-- 这里的active属性就是使得所在的li的背景色变为蓝色-->
+                <li><a href="/plan/create_plan/">生产管理</a></li>
+                <li><a href="/purchase/">销售管理</a></li>
+                <li><a href="/storage/">库存管理</a></li>
+                <li><a href="/report/">报表管理</a></li>
+                <li class="active"><a href="/info/">基本资料</a></li>
+                <li><a href="/system/">系统维护</a></li>
+            </ul>
+        </div>
+    </nav>
+{% endblock %}
+
+{% block body %}
+    <section class="col-md-9" id="user_info_section_title">
+        <div class="user_info_title  form-inline">
+            <div class="form-group" id="add_user_info_control">
+                <label for="user_name">用户名:</label>
+                <input class="form-control" type="text" id="user_name" placeholder="请输入用户名">&nbsp;&nbsp;&nbsp;&nbsp;
+                <button class="form-control btn btn-primary" type="button" id="user_add_submit">添加</button>
+            </div>
+            <table class="table table-striped" id="user_info_table_title">
+                <thead>
+                <th></th>
+                <th width="150px">序号</th>
+                <th width="150px">用户名</th>
+                <th width="200px">联系方式</th>
+                <th width="200px">备注</th>
+                <th width="300px">操作</th>
+                <th></th>
+                </thead>
+            </table>
+        </div>
+    </section>
+
+
+
+
+
+    <section class="col-md-9">
+        <div class="user_info_title">
+            <table class="table table-striped" id="user_info_table_body">
+                <tbody class="action_warning">
+                {% for foo in user_info %}
+                    <tr>
+                        <td><span></span></td>
+                        <td width="150px"><span>{{ foo.id }}</span></td>
+                        <td width="150px"><span>{{ foo.user_name }}</span></td>
+                        <td width="200px"><span>{{ foo.telephone_number }}</span></td>
+                        <td width="200px"><span>{{ foo.comment }}</span></td>
+                        <td width="300px"><span user_id="{{ foo.id }}" class="del_user_info">删除</span>&nbsp;&nbsp;|&nbsp;&nbsp;
+                            <span user_id="{{ foo.id }}" class="change_user_info">修改</span></td>
+                        <td><span></span></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+{% endblock %}

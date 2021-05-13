@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>{{ title }}</title>
+    <link type="text/css" rel="stylesheet" href="{% static 'css/bootstrap.css' %}"/>
+    <link type="text/css" rel="stylesheet" href="{% static 'css/bootstrap-theme.css' %}"/>
+    <link type="text/css" rel="stylesheet" href="{% static 'css/base_main.css' %}"/>
+    {% block ex_css %}
+    {% endblock %}
+    <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/base_main.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap.js' %}"></script>
+    {% block ex_js %}
+    {% endblock %}
+
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            {#            <a class="navbar-brand" href="#" id="logo_brand">Brand</a>#}
+            <a class="navbar-brand" href="#" id="logo_brand"><img width="45%" src="{% static 'img/logo.jpg' %}" alt=""></a>
+        </div>
+    </div>
+</nav>
+
+
+
+{% block header %}
+    <nav class="col-md-1  navbar navbar-default" id="main_navigate">
+        <div class="container-fluid">
+            <ul class="nav nav-pills nav-stacked">
+                <!-- 这里的active属性就是使得所在的li的背景色变为蓝色-->
+                <li class="active"><a href="#">生产管理</a></li>
+                <li><a href="#">销售管理</a></li>
+                <li><a href="#">库存管理</a></li>
+                <li><a href="#">报表管理</a></li>
+                <li><a href="#">基本资料</a></li>
+                <li><a href="#">系统维护</a></li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <div class="col-md-9" id="main_content1" id="main_menu">
+        <ul>
+            <a href="">
+                <li class="col-md-2"><img src="{% static 'img/icon.jpg' %}" alt="" class="img-circle"></br>
+                    <span>采购进货</span></li>
+            </a>
+        </ul>
+
+    </div>
+{% endblock %}
+
+{% block body %}
+
+{% endblock %}
+{% block footer %}
+
+{% endblock %}
+
+</body>
+</html>

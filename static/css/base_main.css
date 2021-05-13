@@ -1,0 +1,64 @@
+#main_navigate {
+    float: left;
+}
+
+div[id*="main_content"] {
+    margin: 2rem 10rem;
+    float: left;
+    border-style: solid;
+    border-color: black;
+}
+
+div, .container-fluid {
+    padding: 0 0;
+}
+
+#main_navigate li {
+    text-align: center;
+    margin: 6rem 0;
+    padding: 0 0;
+    font-size: 2rem;
+}
+
+ul {
+    list-style-type: none;
+}
+
+ul li {
+    margin: 5rem 2rem;
+    text-align: center;
+}
+
+ul li span {
+    line-height: 6rem;
+    font-size: 2.5rem;
+    text-align: center;
+}
+
+.img-circle {
+    width: 80%;
+}
+
+#logo_brand {
+    position: relative;
+    left: 2rem;
+}
+
+a#logo_brand {
+    padding: 0 0;
+}
+
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+  padding: 2px 8px;
+  line-height: 1.42857143;
+  vertical-align: top;
+  border-top: 1px solid #ddd;
+}
+
+
+

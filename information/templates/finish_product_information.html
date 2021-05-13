@@ -1,0 +1,99 @@
+{% extends 'base_main.html' %}
+{% load static %}
+
+{% block ex_css %}
+    <link rel="stylesheet" href="{% static 'css/product_infomation_manage.css' %}">
+{% endblock %}
+
+{% block ex_js %}
+    <script type="text/javascript" src="{% static 'js/product_information_manage.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap_confirm.js' %}"></script>
+{% endblock %}
+
+{% block header %}
+    <nav class="col-md-1  navbar navbar-default" id="main_navigate">
+        <div class="container-fluid">
+            <ul class="nav nav-pills nav-stacked">
+                <!-- 这里的active属性就是使得所在的li的背景色变为蓝色-->
+                <li><a href="/plan/create_plan/">生产管理</a></li>
+                <li><a href="/purchase/">销售管理</a></li>
+                <li><a href="/storage/">库存管理</a></li>
+                <li><a href="/report/">报表管理</a></li>
+                <li class="active"><a href="/info/">基本资料</a></li>
+                <li><a href="/system/">系统维护</a></li>
+            </ul>
+        </div>
+    </nav>
+
+{% endblock %}
+
+{% block body %}
+
+    <nav class="col-md-3  navbar">
+        <ul class="nav nav-pills">
+            <li role="presentation" style="margin: 0rem" class="active"><a
+                    href="/info/finish_product_infomation/">成品</a></li>
+            <li role="presentation" style="margin: 0rem"><a href="/info/half_product_infomation/">半成品</a></li>
+        </ul>
+    </nav>
+
+    <section class="col-md-4" id="add_product">
+        <div class="form-inline" id="input_alert">
+            <div class="form-group">
+                <label for="pro_id">商品编号：</label>
+                <input type="text" class="form-control" name="pro_id" id="pro_id" placeholder="请输入商品编号">
+            </div>
+            <button type="button" class="btn btn-primary ctr_btn" id="add_product_submit">添加</button>
+            <button type="button" class="btn btn-primary ctr_btn" id="input_product" pro_type="finish">导入</button>
+            <input type="file" id="file_upload" accept="application/vnd.ms-excel" style="display: none;">
+        </div>
+        <div class="alert alert-danger" class="form-group" role="alert"
+             style="visibility: hidden;width: 30rem;height: 1rem;line-height: 0.5rem;margin: 0.1rem;" id="alert_win">
+            输入的产品编号已存在
+        </div>
+    </section>
+
+    <section class="col-md-9" id="product_detail_title">
+        <table class="table table-striped">
+            <thead>
+            <th width="15%">商品编号</th>
+            <th width="20%">类型</th>
+            <th width="20%">成本单价</th>
+            <th width="20%">标准零售价</th>
+            <th width="25%">操作</th>
+            </thead>
+        </table>
+    </section>
+
+
+    <section class="col-md-9" id="product_detail">
+        <table class="table table-striped" id="product_info">
+            <tbody class="action_warning">
+            {% for foo in info %}
+                <tr id="row_{{ foo.pro_id }}">
+                    <td width="15%">{{ foo.pro_id }}</td>
+                    <td width="20%" class="pro_type" type="finish">{{ foo.pro_type }}</td>
+                    <td width="20%">{{ foo.pro_unit_cost|floatformat:2 }}</td>
+                    <td width="20%">{{ foo.pro_unit_price|floatformat:2 }}</td>
+                    <td width="25%"><span type="finish" pro_id="{{ foo.pro_id }}" class="edit_product_detail"
+                    >修改</span>&nbsp;&nbsp;|&nbsp;&nbsp;<span class="delete_product_detail">删除</span>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+    <section class="col-md-9" id="product_detail_footer">
+        <table class="table table-striped">
+            <tfoot>
+            <th> </th>
+            </tfoot>
+        </table>
+    </section>
+
+
+
+
+
+{% endblock %}

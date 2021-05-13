@@ -1,0 +1,26 @@
+td, th {
+    text-align: center;
+}
+
+#cust_condition {
+    width: 13rem;
+}
+
+#point_customer {
+    float: right;
+    margin: 0 2rem 4rem 2rem;
+}
+
+#cust_detail_title, #cust_detail_footer {
+    margin: 0 2rem;
+    padding: 0 2rem;
+    height: 4rem;
+}
+
+#cust_detail {
+    margin: 0 2rem;
+    padding: 0 2rem;
+    height: 55rem;
+    width: 76%;
+    overflow-y: scroll;
+}

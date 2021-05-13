@@ -1,0 +1,56 @@
+
+body {
+    height: 100%;
+    width: 100%;
+    background-image: url("../img/back_ground.jpg");
+    background-size: 100% 100%;
+    background-repeat: space;
+}
+
+#wrapper_border {
+    /*margin: 20rem auto;*/
+    height: 400px;
+    width: 600px;
+}
+
+#sign_in_border {
+    padding: 20px;
+    text-align: center;
+    margin: auto auto;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-color: rgba(255, 255, 255, 0.7);
+}
+
+h1 {
+    color: #ffffff;
+    text-shadow: black;
+}
+
+#user_name, #user_password{
+    margin: 20px 0;
+    width: 400px;
+    border-bottom-style: none;
+    border-top-style: none;
+    border-right-style: none;
+    border-left-style: solid;
+    border-left-width: 30px;
+    border-left-color: rgba(120, 181, 229, 1);
+}
+
+#user_name_icon, #user_password_icon {
+    font-size: 25px;
+    position: relative;
+    top: 8px;
+    left: 32px;
+    color: white;
+}
+
+#user_load_in, #user_reset {
+    font-size: 25px;
+    margin: 10px;
+    width: 100px;
+    height: 50px;
+}
+

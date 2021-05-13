@@ -1,0 +1,124 @@
+{% extends 'base_main.html' %}
+{% load static %}
+
+{% block ex_css %}
+    <link rel="stylesheet" href="{% static 'css/report_list.css' %}">
+{% endblock %}
+
+{% block ex_js %}
+    <script type="text/javascript" src="{% static 'js/report_list.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap_confirm.js' %}"></script>
+{% endblock %}
+
+{% block header %}
+    <nav class="col-md-1  navbar navbar-default" id="main_navigate">
+        <div class="container-fluid">
+            <ul class="nav nav-pills nav-stacked">
+                <!-- 这里的active属性就是使得所在的li的背景色变为蓝色-->
+                <li><a href="/plan/create_plan/">生产管理</a></li>
+                <li><a href="/purchase/">销售管理</a></li>
+                <li><a href="/storage/">库存管理</a></li>
+                <li class="active"><a href="/report/">报表管理</a></li>
+                <li><a href="/info/">基本资料</a></li>
+                <li><a href="/system/">系统维护</a></li>
+            </ul>
+        </div>
+    </nav>
+
+{% endblock %}
+
+{% block body %}
+
+    <section class="col-md-8" id="storage_report_info_section" pur_id="{{ storage_out.pur_id }}">
+        <table id="storage_report_info" width="100%">
+            <tbody>
+            <tr>
+                <td width="15%">订单编号：{{ storage_out.pur_id }}</td>
+                <td width="20%">订单日期：{{ storage_out.storage_create_date|date }}</td>
+                <td width="20%">订单状态：<span style="color: green;">已出库</span></td>
+                <td width="45%"></td>
+            </tr>
+            <tr>
+                <td width="15%">地区：{{ storage_out.cust_info.cust_location }}</td>
+                <td width="20%">客户姓名：{{ storage_out.cust_info.cust_name }}</td>
+                <td class="form-inline" width="20%" id="translation_expense_td">
+                    <span class="form-group">运费：
+                    <span id="translation_expense">{{ storage_out.translation_expense|floatformat:2 }}</span>
+                    <span>&nbsp;&nbsp;元</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="form-group" id="modify_translation_expense">修改</span></td>
+                <td width="45%" class="form-inline" style="vertical-align: top">
+                    <div style="float: left"><span>运费备注：</span></div>
+                    {% if not storage_out.translation_comment %}
+                        <div style="float: left"><span id="trans_comment"></span></div>
+                        <div style="float: left"><span id="change_trans_comment">添加备注</span></div>
+                    {% else %}
+                        <div style="float: left; max-width: 60%"><span
+                                id="trans_comment">{{ storage_out.translation_comment }}</span>
+                        </div>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <div style="float: left"></div>
+                        <span id="change_trans_comment">修改备注</span>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td width="15%">数量：{{ storage_out.total_count }}</td>
+                <td width="20%">金额：{{ storage_out.storage_price|floatformat:2 }}</td>
+                <td width="20%">提货金额：{{ storage_out.storage_actual_price|floatformat:2 }}</td>
+                <td class="form-inline" width="45%">经手人：<span id="handler_contain"><span
+                        id="storage_handler">{{ storage_out.pur_handler }}</span><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                        id="change_handler">修改</span></span></td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section class="col-md-9" id="storage_detail_title">
+        <table class="table table-striped" id="pur_order_detail_head">
+            <thead>
+            <th></th>
+            <th width="135px">产品编号</th>
+            <th width="135px">数量</th>
+            <th width="135px">标准零售价</th>
+            <th width="135px">金额</th>
+            <th></th>
+            </thead>
+        </table>
+    </section>
+
+
+    <section class="col-md-9" id="storage_detail">
+        <table class="table table-striped" id="storage_detail_body">
+            <tbody class="action_warning">
+            {% for foo in storage_out_detail %}
+                <tr>
+                    <th></th>
+                    <td width="135px">{{ foo.pro_id }}</td>
+                    <td width="135px">{{ foo.storage_pro_count|floatformat:0 }}</td>
+                    <td width="135px">{{ foo.storage_unit_price|floatformat:2 }}</td>
+                    <td width="135px">{{ foo.storage_pro_price|floatformat:2 }}</td>
+                    <th></th>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+    <section class="col-md-9" id="storage_detail_footer">
+        <table class="table table-striped">
+            <tfoot>
+            <th>
+                <button pur_id="{{ storage_out.pur_id }}" class="btn btn-primary" style="margin: 1rem;"
+                        id="edit_statement_detail">修改订单
+                </button>
+                <button class="btn btn-primary" style="margin: 1rem;" id="close_window">关闭窗口</button>
+            </th>
+            </tfoot>
+        </table>
+    </section>
+
+
+
+
+
+{% endblock %}

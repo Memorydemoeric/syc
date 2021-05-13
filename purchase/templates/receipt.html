@@ -1,0 +1,92 @@
+{% extends 'base_main.html' %}
+{% load static %}
+
+{% block ex_css %}
+    <link rel="stylesheet" href="{% static 'css/receipt.css' %}">
+{% endblock %}
+
+{% block ex_js %}
+    <script type="text/javascript" src="{% static 'js/bootstrap_confirm.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/receipt.js' %}"></script>
+{% endblock %}
+
+{% block header %}
+    <nav class="col-md-1  navbar navbar-default" id="main_navigate">
+        <div class="container-fluid">
+            <ul class="nav nav-pills nav-stacked">
+                <!-- 这里的active属性就是使得所在的li的背景色变为蓝色-->
+                <li><a href="/plan/create_plan/">生产管理</a></li>
+                <li class="active"><a href="/purchase/">销售管理</a></li>
+                <li><a href="/storage/">库存管理</a></li>
+                <li><a href="/report/">报表管理</a></li>
+                <li><a href="/info/">基本资料</a></li>
+                <li><a href="/system/">系统维护</a></li>
+            </ul>
+        </div>
+    </nav>
+{% endblock %}
+
+
+{% block body %}
+    <section class="col-md-5" id="point_customer">
+        <form action="" class="form-inline" method="post">
+            <div class="form-group">
+                <label for="cust_condition">地区&nbsp;&nbsp;/&nbsp;&nbsp;客户名：</label>
+                <input class="form-control" type="text" id="cust_condition" name="cust_condition" placeholder="请输入查询条件"
+                       value="{{ cust_condition }}">&nbsp;&nbsp;&nbsp;&nbsp;
+                <button type="submit" class="btn btn-primary">查询</button>
+            </div>
+        </form>
+    </section>
+
+
+    <section class="col-md-9" id="cust_detail_title">
+        <table class="table table-striped" id="pur_order_detail_head">
+            <thead>
+            <th width="15%">地区</th>
+            <th width="15%">客户</th>
+            <th width="15%">余额</th>
+            <th width="20%">最新修改时间</th>
+            <th width="35%">操作</th>
+            </thead>
+        </table>
+    </section>
+
+
+    <section class="col-md-9" id="cust_detail">
+        <table class="table table-striped" id="storage_detail_body">
+            <tbody class="action_warning">
+            {% for foo in cust_info %}
+                {% if foo.balance < 0 %}
+                    <tr style="color: red">
+                        <td width="15%">{{ foo.cust_info.cust_location }}</td>
+                        <td width="15%">{{ foo.cust_info.cust_name }}</td>
+                        <td width="15%">{{ foo.balance|floatformat:2 }}</td>
+                        <td width="20%">{{ foo.latest_pur_date|date }}</td>
+                        <td width="35%"><a href="/purchase/receipt_income/?cust_id={{ foo.cust_id }}">收款</a>&nbsp;&nbsp;<span
+                                style="color: black">|</span>&nbsp;&nbsp;<a href="/report/statement_detail/?cust_id={{ foo.cust_id }}">对账单</a></td>
+                    </tr>
+                {% else %}
+                    <tr style="color: green">
+                        <td width="15%">{{ foo.cust_info.cust_location }}</td>
+                        <td width="15%">{{ foo.cust_info.cust_name }}</td>
+                        <td width="15%">{{ foo.balance|floatformat:2 }}</td>
+                        <td width="20%">{{ foo.latest_pur_date|date }}</td>
+                        <td width="35%"><a href="/purchase/receipt_income/?cust_id={{ foo.cust_id }}">收款</a>&nbsp;&nbsp;<span
+                                style="color: black">|</span>&nbsp;&nbsp;<a href="/report/statement_detail/?cust_id={{ foo.cust_id }}">对账单</a></td>
+                    </tr>
+                {% endif %}
+
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+    <section class="col-md-9" id="cust_detail_footer">
+        <table class="table table-striped">
+            <tfoot>
+            <th></th>
+            </tfoot>
+        </table>
+    </section>
+{% endblock %}

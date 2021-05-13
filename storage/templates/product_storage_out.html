@@ -1,0 +1,154 @@
+{% extends 'base_main.html' %}
+{% load static %}
+{% block ex_css %}
+    <link rel="stylesheet" href="{% static 'css/product_storage_out.css' %}">
+{% endblock %}
+
+{% block ex_js %}
+    <script type="text/javascript" src="{% static 'js/bootstrap_confirm.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/product_storage_out.js' %}"></script>
+
+{% endblock %}
+
+{% block header %}
+    <nav class="col-md-1  navbar navbar-default" id="main_navigate">
+        <div class="container-fluid">
+            <ul class="nav nav-pills nav-stacked">
+                <!-- 这里的active属性就是使得所在的li的背景色变为蓝色-->
+                <li><a href="/plan/create_plan/">生产管理</a></li>
+                <li><a href="/purchase/">销售管理</a></li>
+                <li class="active"><a href="/storage/">库存管理</a></li>
+                <li><a href="/report/">报表管理</a></li>
+                <li><a href="/info/">基本资料</a></li>
+                <li><a href="/system/">系统维护</a></li>
+            </ul>
+        </div>
+    </nav>
+
+{% endblock %}
+
+{% block body %}
+    <input type="text" style="display: none;" id="page_scroll" value="{{ page_scroll }}">
+    <section class="col-md-11" id="storage_out_select">
+        <nav class="col-md-11  navbar">
+            <ul class="nav nav-pills">
+                {% for foo in out_select %}
+                    {% if ord_id == foo.id %}
+                        {% if foo.id in is_out %}
+                            <li role="presentation" class="active storage_out" style="margin: 0rem"><a
+                                    href="/storage/product_storage_out/?ord_id={{ foo.id }}&scroll={{ page_scroll }}">
+                                {{ foo.cust_info.cust_location }}{{ foo.cust_info.cust_name }}
+                                {% if foo.pur_comment %}
+                                    ({{ foo.pur_comment }})
+                                {% endif %}
+                                <span class="glyphicon glyphicon-ok"></span></a></li>
+                        {% else %}
+                            <li role="presentation" class="active storage_out" style="margin: 0rem"><a
+                                    href="/storage/product_storage_out/?ord_id={{ foo.id }}&scroll={{ page_scroll }}">
+                                {{ foo.cust_info.cust_location }}{{ foo.cust_info.cust_name }}
+                                {% if foo.pur_comment %}
+                                    ({{ foo.pur_comment }})
+                                {% endif %}
+                            </a></li>
+                        {% endif %}
+
+                    {% else %}
+                        {% if foo.id in is_out %}
+                            <li role="presentation" class="storage_out" style="margin: 0rem"><a
+                                    href="/storage/product_storage_out/?ord_id={{ foo.id }}&scroll={{ page_scroll }}">
+                                {{ foo.cust_info.cust_location }}{{ foo.cust_info.cust_name }}
+                                {% if foo.pur_comment %}
+                                    ({{ foo.pur_comment }})
+                                {% endif %}
+                                <span class="glyphicon glyphicon-ok"></span></a></li>
+                        {% else %}
+                            <li role="presentation" class="storage_out" style="margin: 0rem"><a
+                                    href="/storage/product_storage_out/?ord_id={{ foo.id }}&scroll={{ page_scroll }}">
+                                {{ foo.cust_info.cust_location }}{{ foo.cust_info.cust_name }}
+                                {% if foo.pur_comment %}
+                                    ({{ foo.pur_comment }})
+                                {% endif %}
+                            </a></li>
+                        {% endif %}
+
+                    {% endif %}
+
+                {% endfor %}
+            </ul>
+        </nav>
+
+    </section>
+
+
+    <section class="col-md-9" id="order_detail_title">
+        <table class="table table-striped" id="pur_order_detail_head">
+            <thead>
+            <th width="15%">商品编号</th>
+            <th width="15%">数量</th>
+            <th width="15%">标准零售价</th>
+            <th width="15%">折扣率 ％</th>
+            <th width="15%">折后金额</th>
+            <th width="25%">操作</th>
+            </thead>
+        </table>
+    </section>
+
+
+    <section class="col-md-9" id="order_detail">
+        <table class="table table-striped" id="pur_order_detail_body">
+            <tbody class="action_warning">
+            {% for foo in out_detail %}
+                <tr>
+                    <td width="15%">{{ foo.pro_id }}</td>
+                    <td width="15%" class="pro_count">{{ foo.pro_count }}</td>
+                    <td width="15%">{{ foo.pro_ordinary_price }}</td>
+                    <td width="15%">{{ foo.rebate }}</td>
+                    <td width="15%">{{ foo.pro_price }}</td>
+                    <td width="25%"><span class="out_list_operation modify_count" ord_id="{{ ord_id }}"
+                                          pro_id="{{ foo.pro_id }}" pro_count="{{ foo.pro_count }}">修改</span>&nbsp;&nbsp;|&nbsp;&nbsp;<span
+                            ord_id="{{ ord_id }}" pro_id="{{ foo.pro_id }}"
+                            class="out_list_operation del_element">删除</span></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+
+    <section class="col-md-9" id="pur_order_detail_foot">
+        <table class="table table-striped">
+            <tfoot>
+            <th width="15%" style="text-align: left">总计：</th>
+            <th width="15%">{{ total_count }}</th>
+            <th width="15%">{{ total_ordinary_price|floatformat:2 }}</th>
+            <th width="15%"></th>
+            <th width="15%">{{ total_price|floatformat:2 }}</th>
+            <th width="25%">
+                <label for="translation_expense">运费：</label>
+                <input class="form-control" type="number" id="translation_expense" name="translation_expense"
+                       value="{{ translation_expense }}">
+                <span>元</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <label for="handler">经手人：</label>
+                <select class="form-control" id="handler">
+                    {% for foo in user_info %}
+                        {% if foo.user_name == query_user %}
+                            <option value="{{ foo.user_name }}" selected="selected">{{ foo.user_name }}</option>
+                        {% else %}
+                            <option value="{{ foo.user_name }}">{{ foo.user_name }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select></th>
+            </tfoot>
+        </table>
+
+
+        <section class="col-md-12" style="text-align: center">
+            <button ord_id="{{ ord_id }}" id="storage_out_report" class="btn btn-primary">确认订单</button>
+            <a href="" id="storage_output" target="_blank"></a>
+            <button ord_id="{{ ord_id }}" id="storage_out_list_output" class="btn btn-primary">订单导出</button>
+            <button ord_id="{{ ord_id }}" id="storage_out_reset" class="btn btn-warning">重置</button>
+        </section>
+    </section>
+
+
+{% endblock %}

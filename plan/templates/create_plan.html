@@ -1,0 +1,119 @@
+{% extends 'base_main.html' %}
+{% load static %}
+
+{% block ex_css %}
+    <link rel="stylesheet" href="{% static 'css/create_plan.css' %}">
+{% endblock %}
+
+{% block ex_js %}
+    <script type="text/javascript" src="{% static 'js/create_plan.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap_confirm.js' %}"></script>
+{% endblock %}
+
+{% block header %}
+    <nav class="col-md-1  navbar navbar-default" id="main_navigate">
+        <div class="container-fluid">
+            <ul class="nav nav-pills nav-stacked">
+                <!-- 这里的active属性就是使得所在的li的背景色变为蓝色-->
+                <li class="active"><a href="/plan/create_plan/">生产管理</a></li>
+                <li><a href="/purchase/">销售管理</a></li>
+                <li><a href="/storage/">库存管理</a></li>
+                <li><a href="/report/">报表管理</a></li>
+                <li><a href="/info/">基本资料</a></li>
+                <li><a href="/system/">系统维护</a></li>
+            </ul>
+        </div>
+    </nav>
+
+{% endblock %}
+
+{% block body %}
+
+    <section class="col-md-10" id="add_plan_detail">
+        <div class="form-inline" id="plan_form">
+            <div class="form-group">
+                <label for="pro_id">商品编号：</label>
+                <input type="text" class="form-control" name="pro_id" id="pro_id" placeholder="请输入商品编号">
+            </div>
+            <div class="form-group">
+                <label for="pro_count">　　数量：</label>
+                <input type="number" class="form-control" name="pro_count" id="pro_count" placeholder="请输入商品数量">
+            </div>
+            　　
+            <button type="button" class="btn btn-primary" id="plan_detail_submit">添加</button>
+            　　
+
+        </div>
+    </section>
+
+    <section class="col-md-9" id="plan_detail_title">
+        <table class="table table-striped" id="pur_order_detail_head">
+            <thead>
+            <th width="10%">商品编号</th>
+            <th width="15%">数量</th>
+            <th width="15%">半成品需求量</th>
+            <th width="15%">成品需求量</th>
+            <th width="15%">完成度 %</th>
+            <th width="10%">半成品数量</th>
+            <th width="10%">成品数量</th>
+            <th width="10%">操作</th>
+            </thead>
+        </table>
+    </section>
+
+
+    <section class="col-md-9" id="plan_detail">
+        <table class="table table-striped" id="plan_detail_body">
+            <tbody class="action_warning">
+            {% for foo in plan_detail %}
+                {% if foo.percent_complete == 100 %}
+                    <tr style="color: green;">
+                        <td width="10%">{{ foo.pro_id }}</td>
+                        <td width="15%">{{ foo.pro_count|floatformat:0 }}</td>
+                        <td width="15%">{{ foo.new_half_finished|floatformat:0 }}</td>
+                        <td width="15%">{{ foo.new_product|floatformat:0 }}</td>
+                        <td width="15%">{{ 100.00 }}</td>
+                        <td width="10%">{{ foo.half_count|floatformat:0 }}</td>
+                        <td width="10%">{{ foo.product.pro_count|floatformat:0 }}</td>
+                        <td width="10%"><span name="{{ foo.pro_id }}" class="del_plan_detail"
+                        >删除</span>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr style="color: red;">
+                        <td width="10%">{{ foo.pro_id }}</td>
+                        <td width="15%">{{ foo.pro_count|floatformat:0 }}</td>
+                        <td width="15%">{{ foo.new_half_finished|floatformat:0 }}</td>
+                        <td width="15%">{{ foo.new_product|floatformat:0 }}</td>
+                        <td width="15%">{{ foo.percent_complete|floatformat:2 }}</td>
+                        <td width="10%">{{ foo.half_count|floatformat:0 }}</td>
+                        <td width="10%">{{ foo.product.pro_count|floatformat:0 }}</td>
+                        <td width="10%"><span name="{{ foo.pro_id }}" class="del_plan_detail"
+                        >删除</span>
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+    <section class="col-md-9" id="plan_detail_foot">
+        <table class="table table-striped">
+            <tfoot>
+            <th>
+                <button id="clear_plan" class="btn btn-primary">清空列表</button>
+                <a id="plan_download" href="/plan/file_down/" target="_blank"></a>
+                <button id="submit_plan" class="btn btn-primary">生成报表</button>
+
+            </th>
+            </tfoot>
+        </table>
+
+    </section>
+
+
+
+
+
+{% endblock %}

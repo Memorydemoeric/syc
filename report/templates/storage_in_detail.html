@@ -1,0 +1,82 @@
+{% extends 'base_main.html' %}
+{% load static %}
+
+{% block ex_css %}
+    <link rel="stylesheet" href="{% static 'css/storage_in_detail.css' %}">
+{% endblock %}
+
+{% block ex_js %}
+    <script type="text/javascript" src="{% static 'js/storage_in_detail.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap_confirm.js' %}"></script>
+{% endblock %}
+
+{% block header %}
+
+    <nav class="col-xs-2 col-md-1 navbar navbar-default" id="main_navigate">
+        <div class="container-fluid">
+            <ul class="nav nav-pills nav-stacked">
+                <!-- 这里的active属性就是使得所在的li的背景色变为蓝色-->
+                <li><a href="/plan/create_plan/">生产管理</a></li>
+                <li><a href="/purchase/">销售管理</a></li>
+                <li><a href="/storage/">库存管理</a></li>
+                <li class="active"><a href="/report/">报表管理</a></li>
+                <li><a href="/info/">基本资料</a></li>
+                <li><a href="/system/">系统维护</a></li>
+            </ul>
+        </div>
+    </nav>
+{% endblock %}
+
+{% block body %}
+
+    <section class="row col-md-7 col-xs-7" id="storage_in_infos">
+        <ul>
+            <li>订单编号: <span id="storage_in_id">{{ storage_in_info.id }}</span></li>
+            <br>
+            <li>时间: {{ storage_in_info.in_date }}</li>
+            <br>
+            {% if storage_in_type == 'half' %}
+                <li>类型: 半成品</li>
+            {% else %}
+                <li>类型: 成品</li>
+            {% endif %}
+        <li>总数: <span id="total_count">{{ storage_in_info.in_total_count|floatformat:0 }}</span></li>
+        </ul>
+    </section>
+
+
+
+    <section class="row col-md-9 col-xs-9" id="storage_in_detail_head_section">
+        <table class="table table-striped" id="storage_in_detail_head">
+            <thead>
+            <th></th>
+            <th width="120px">产品编号</th>
+            <th width="120px">数量</th>
+            <th width="150px">操作</th>
+            <th></th>
+            </thead>
+        </table>
+    </section>
+
+    <section class="row col-md-9 col-xs-9" id="storage_in_detail_body_section">
+        <table class="table table-striped" id="storage_in_detail_body">
+            <tbody class="action_warning" storage_in_type="{{ storage_in_type }}">
+            {% for foo in storage_in_detail %}
+                <tr storage_in_pro_id="{{ foo.pro_id }}">
+                    <td></td>
+                    <td width="120px">{{ foo.pro_id }}</td>
+                    <td width="120px"><span class="pro_count">{{ foo.in_count|floatformat:0 }}</span></td>
+                    <td width="150px"><span><a href="" class="edit_storage_in_detail">修改</a></span>&nbsp;&nbsp;|&nbsp;&nbsp;<span><a
+                            href="" class="del_storage_in_detail">删除</a></span></td>
+                    <td></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+    <section class="row col-md-9 col-xs-9" id="action_control">
+        <button type="button" id="commit_edit" class="btn btn-primary">完成</button>
+        <button type="button" id="close_window" class="btn btn-primary">关闭窗口</button>
+    </section>
+{% endblock %}

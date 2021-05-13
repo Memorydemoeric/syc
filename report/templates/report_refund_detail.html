@@ -1,0 +1,97 @@
+{% extends 'base_main.html' %}
+{% load static %}
+
+{% block ex_css %}
+    <link rel="stylesheet" href="{% static 'css/report_refund_detail.css' %}">
+{% endblock %}
+
+{% block ex_js %}
+    <script type="text/javascript" src="{% static 'js/report_refund_detail.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap_confirm.js' %}"></script>
+{% endblock %}
+
+{% block header %}
+    <nav class="col-md-1  navbar navbar-default" id="main_navigate">
+        <div class="container-fluid">
+            <ul class="nav nav-pills nav-stacked">
+                <!-- 这里的active属性就是使得所在的li的背景色变为蓝色-->
+                <li><a href="/plan/create_plan/">生产管理</a></li>
+                <li><a href="/purchase/">销售管理</a></li>
+                <li><a href="/storage/">库存管理</a></li>
+                <li class="active"><a href="/report/">报表管理</a></li>
+                <li><a href="/info/">基本资料</a></li>
+                <li><a href="/system/">系统维护</a></li>
+            </ul>
+        </div>
+    </nav>
+
+{% endblock %}
+
+{% block body %}
+
+    <section class="col-md-5" id="storage_report_info_section" pur_id="{{ storage_out.pur_id }}">
+        <table id="storage_report_info" width="100%">
+            <tr>
+                <td width="25%">订单编号：{{ refund_info.id }}</td>
+                <td width="35%">订单日期：{{ refund_info.ref_create_time|date }}</td>
+                <td width="40%"></td>
+            </tr>
+            <tr>
+                <td width="25%">地区：{{ cust_info.cust_location }}</td>
+                <td width="35%">客户姓名：{{ cust_info.cust_name }}</td>
+                <td width="40%">折扣：{{ cust_info.cust_rebate }}%</td>
+            </tr>
+            <tr>
+                <td width="25%">数量：{{ refund_info.total_count }}</td>
+                <td width="35%">金额：{{ refund_info.total_price|floatformat:2 }}</td>
+                <td width="40%">退货金额：{{ total_actual_price|floatformat:2 }}</td>
+            </tr>
+        </table>
+    </section>
+
+    <section class="col-md-9" id="storage_detail_title">
+        <table class="table table-striped" id="pur_order_detail_head">
+            <thead>
+            <th width="30%"></th>
+            <th width="10%">产品编号</th>
+            <th width="10%">数量</th>
+            <th width="10%">标准零售价</th>
+            <th width="10%">金额</th>
+            <th width="30%"></th>
+            </thead>
+        </table>
+    </section>
+
+
+    <section class="col-md-9" id="storage_detail">
+        <table class="table table-striped" id="storage_detail_body">
+            <tbody class="action_warning">
+            {% for foo in refund_detail_info %}
+                <tr>
+                    <th width="30%"></th>
+                    <td width="10%">{{ foo.ref_pro_id }}</td>
+                    <td width="10%">{{ foo.ref_pro_count|floatformat:0 }}</td>
+                    <td width="10%">{{ foo.pro_info.pro_unit_price|floatformat:2 }}</td>
+                    <td width="10%">{{ foo.pro_total_price|floatformat:2 }}</td>
+                    <th width="30%"></th>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+    <section class="col-md-9" id="storage_detail_footer">
+        <table class="table table-striped">
+            <tfoot>
+            <th>
+                <button class="btn btn-primary" style="margin: 1rem;" id="close_window">关闭窗口</button>
+            </th>
+            </tfoot>
+        </table>
+    </section>
+
+
+
+
+
+{% endblock %}
