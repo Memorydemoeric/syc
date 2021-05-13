@@ -1,0 +1,40 @@
+{% extends 'base_main.html' %}
+{% load static %}
+
+{% block header %}
+    <nav class="col-md-1  navbar navbar-default" id="main_navigate">
+        <div class="container-fluid">
+            <ul class="nav nav-pills nav-stacked">
+                <!-- 这里的active属性就是使得所在的li的背景色变为蓝色-->
+                <li class="active"><a href="/plan/create_plan/">生产管理</a></li>
+                <li><a href="/purchase/">销售管理</a></li>
+                <li><a href="/storage/">库存管理</a></li>
+                <li><a href="/report/">报表管理</a></li>
+                <li><a href="/info/">基本资料</a></li>
+                <li><a href="/system/">系统维护</a></li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <div class="col-md-9" id="main_content1" id="main_menu">
+        <ul>
+
+            <li class="col-md-2">
+                <a href="/plan/create_plan/">
+                    <img src="{% static 'img/icon.jpg' %}" alt="" class="img-circle"></br>
+                    <span>生产安排</span>
+                </a>
+            </li>
+
+
+            <li class="col-md-2">
+                <a href="">
+                    <img src="{% static 'img/icon.jpg' %}" alt="" class="img-circle"></br>
+                    <span>订单管理</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+{% endblock %}

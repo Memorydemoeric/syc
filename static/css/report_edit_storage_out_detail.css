@@ -1,0 +1,98 @@
+td, th {
+    text-align: center;
+}
+
+#storage_detail {
+    height: 45rem;
+    width: 76%;
+    overflow-y: scroll;
+}
+
+#search_storage_detail {
+    margin: 0 2rem 4rem 2rem;
+    float: right;
+    position: relative;
+    right: 10%;
+"
+}
+
+#storage_detail_submit {
+    margin: 0 1rem;
+}
+
+#storage_detail_title, #storage_detail_footer {
+    margin: 0 2rem;
+    padding: 0 2rem;
+    height: 4rem;
+}
+
+#storage_detail {
+    margin: 0 2rem;
+    padding: 0 2rem;
+}
+
+#clear_storage, #submit_storage {
+    margin: 0 2rem;
+}
+
+.storage_detail {
+    cursor: pointer;
+    color: #337ab9;
+}
+
+.storage_detail:hover {
+    color: #337ab9;
+    cursor: pointer;
+    text-decoration-line: underline;
+}
+
+#storage_detail_footer th {
+    text-align: center;
+}
+
+#storage_report_info td {
+    text-align: left;
+}
+
+#storage_report_info_section {
+    margin: 2rem;
+    font-size: 1.5rem;
+}
+
+#cust_condition {
+    width: 14rem;
+}
+
+#modify_translation_expense, #change_trans_comment {
+    cursor: pointer;
+    color: #337ab9;
+}
+
+#modify_translation_expense:hover, #change_trans_comment:hover {
+    cursor: pointer;
+    color: #337ab9;
+    text-decoration-line: underline;
+}
+
+#submit_section {
+    text-align: center;
+}
+
+#report_pro_id, #report_pro_count {
+    width: 8rem;
+}
+
+#add_report_detail_section {
+    margin: 4rem 0 2rem 2rem;
+}
+
+.del_storage_detail {
+    cursor: pointer;
+    color: #337ab9;
+}
+
+.del_storage_detail:hover {
+    cursor: pointer;
+    color: #337ab9;
+    text-decoration-line: underline;
+}

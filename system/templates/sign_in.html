@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+
+    <link type="text/css" rel="stylesheet" href="{% static 'css/bootstrap.css' %}"/>
+    <link type="text/css" rel="stylesheet" href="{% static 'css/bootstrap-theme.css' %}"/>
+    <link type="text/css" rel="stylesheet" href="{% static 'css/sign_in.css' %}"/>
+
+
+    <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/sign_in.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.md5.js' %}"></script>
+
+</head>
+<body>
+
+<div class="container form-inline" id="wrapper_border">
+    <div class="col-md-9 jumbotron" id="sign_in_border">
+        <h1>登&nbsp;&nbsp;录</h1>
+        <div id="user_name_control" class="col-md-12 form-group">
+            <label for="user_name"><span id="user_name_icon" class="glyphicon glyphicon-user"></span></label>
+            <input style="color: #acacac;" id="user_name" class="form-control" type="text" value="syc">
+        </div>
+        <div id="user_password_control" class="col-md-12 form-group">
+            <label for="user_password"><span id="user_password_icon" class="glyphicon glyphicon-lock"></span></label>
+            <input id="user_password" class="form-control" type="password" placeholder="请输入密码...">
+        </div>
+        <div>
+            <p><span id="passwd_error" style="visibility: hidden; color: red;">用户名或密码错误...</span></p>
+            <button class="btn btn-primary" type="button" id="user_load_in">登录</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="btn btn-primary" type="button" id="user_reset">重置</button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

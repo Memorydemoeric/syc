@@ -1,0 +1,53 @@
+{% extends 'base_main.html' %}
+{% load static %}
+
+{% block ex_css %}
+    <link rel="stylesheet" href="{% static 'css/refund_purchase.css' %}">
+{% endblock %}
+
+
+{% block ex_js %}
+    <script type="text/javascript" src="{% static 'js/bootstrap_confirm.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/refund_purchase.js' %}"></script>
+{% endblock %}
+
+{% block header %}
+    <nav class="col-md-1  navbar navbar-default" id="main_navigate">
+        <div class="container-fluid">
+            <ul class="nav nav-pills nav-stacked">
+                <!-- 这里的active属性就是使得所在的li的背景色变为蓝色-->
+                <li><a href="/plan/create_plan/">生产管理</a></li>
+                <li class="active"><a href="/purchase/">销售管理</a></li>
+                <li><a href="/storage/">库存管理</a></li>
+                <li><a href="/report/">报表管理</a></li>
+                <li><a href="/info/">基本资料</a></li>
+                <li><a href="/system/">系统维护</a></li>
+            </ul>
+        </div>
+    </nav>
+{% endblock %}
+
+{% block body %}
+    <section class="col-md-10" id="cust_info">
+        <div class="form-inline">
+            <ul id="cust_info_list">
+                <li class="form-group">
+                    <label for="location">地区：</label>
+                    <input type="text" id="location">
+                </li>
+                <li class="form-group">
+                    <label for="customer">客户姓名：</label>
+                    <select name="customer" id="customer" class="form-control">
+                        {% for foo in cust_info %}
+                            <option value="{{ foo.id }}">{{ foo.cust_name }}</option>
+                        {% endfor %}
+                        
+                    </select>
+                </li>
+                <li class="form-group">
+                    <button type="button" class="btn btn-primary" id="submit_refund_purchase">确定</button>
+                </li>
+            </ul>
+        </div>
+    </section>
+{% endblock %}

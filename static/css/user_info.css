@@ -1,0 +1,32 @@
+th, tr, td {
+    text-align: center;
+}
+
+#user_info_section_title {
+    margin-top: 10rem;
+}
+
+#user_info_table_title {
+    margin-bottom: 0;
+}
+
+.user_info_title {
+    width: 80%;
+    margin: 0 auto;
+}
+
+#add_user_info_control {
+    float: right;
+    margin-bottom: 2rem;
+}
+
+.del_user_info, .change_user_info {
+    cursor: pointer;
+    color: #337ab9;
+}
+
+.del_user_info:hover, .change_user_info:hover {
+    color: #337ab9;
+    cursor: pointer;
+    text-decoration-line: underline;
+}

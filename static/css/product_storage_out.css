@@ -1,0 +1,110 @@
+td, th {
+    text-align: center;
+}
+
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+    padding: 2px 8px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+}
+
+#storage_out_select {
+    height: 5rem;
+}
+
+#add_order {
+    padding: 0 2rem;
+    margin: 2rem 2rem;
+}
+
+.del_order, .modify_order {
+    color: #337ab9;
+    cursor: pointer;
+}
+
+#order_title {
+    width: 84%;
+    padding: 0 2rem;
+    margin: 0 2rem;
+}
+
+#order_body {
+    width: 85%;
+    height: 15rem;
+    padding: 0 2rem;
+    margin: 0 2rem;
+    overflow-y: scroll;
+}
+
+#order_detail_title {
+    width: 84%;
+    height: 4rem;
+    padding: 0 2rem;
+    margin: 2rem 2rem 0 2rem;
+}
+
+#order_detail {
+    width: 85%;
+    height: 50rem;
+    padding: 0 2rem;
+    margin: 0 2rem;
+    overflow-y: scroll;
+}
+
+#order_detail_footer {
+    width: 85%;
+    height: 4rem;
+    padding: 0 2rem 5rem 2rem;
+    margin: 0 2rem;
+}
+
+#pur_order_detail_foot {
+    width: 84%;
+    height: 4rem;
+    padding: 0 2rem;
+    margin: 0 2rem;
+}
+
+#produce_report {
+    margin: 2rem auto;
+}
+
+.out_list_operation {
+    color: #337ab9;
+    cursor: pointer;
+    text-decoration-line: underline;
+}
+
+.glyphicon.glyphicon-ok {
+    font-size: 1rem;
+    color: red;
+}
+
+.form-control {
+    width: 80px;
+    display: inline;
+    padding: 0 6px;
+    font-size: 12px;
+    height: 20px;
+}
+
+
+#translation_expense {
+    width: 8rem;
+}
+
+
+#storage_out_report, #storage_out_list_output {
+    margin: 0 0.5rem;
+}
+
+#storage_out_reset {
+    margin: 0 0;
+    float: right;
+}

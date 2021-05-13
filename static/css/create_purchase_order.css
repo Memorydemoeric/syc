@@ -1,0 +1,30 @@
+
+td, th {
+    text-align: center;
+}
+
+#order {
+    height: 60rem;
+    padding: 0 2rem;
+    margin: 0 2rem;
+    overflow: auto;
+}
+
+#add_order {
+    width: 84%;
+    padding: 0 2rem;
+    margin: 2rem 2rem;
+}
+
+
+.del_order,.modify_order,.comment_order {
+    color: #337ab9;
+    cursor: pointer;
+}
+
+
+.del_order:hover,.modify_order:hover,.comment_order:hover {
+    color: #337ab9;
+    cursor: pointer;
+    text-decoration-line: underline;
+}

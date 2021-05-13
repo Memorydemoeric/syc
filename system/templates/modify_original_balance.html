@@ -1,0 +1,71 @@
+{% extends 'base_main.html' %}
+{% load static %}
+
+{% block ex_css %}
+    <link rel="stylesheet" href="{% static 'css/modify_original_balance.css' %}">
+{% endblock %}
+
+{% block ex_js %}
+    <script type="text/javascript" src="{% static 'js/modify_original_balance.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap_confirm.js' %}"></script>
+{% endblock %}
+
+{% block header %}
+    <nav class="row col-xs-2 col-md-1  navbar navbar-default" id="main_navigate">
+        <div class="container-fluid">
+            <ul class="nav nav-pills nav-stacked">
+                <!-- 这里的active属性就是使得所在的li的背景色变为蓝色-->
+                <li><a href="/plan/create_plan/">生产管理</a></li>
+                <li><a href="/purchase/">销售管理</a></li>
+                <li><a href="/storage/">库存管理</a></li>
+                <li><a href="/report/">报表管理</a></li>
+                <li><a href="/info/">基本资料</a></li>
+                <li class="active"><a href="/system/">系统维护</a></li>
+            </ul>
+        </div>
+    </nav>
+{% endblock %}
+
+
+{% block body %}
+
+    <section class="col-md-5 col-xs-10" id="search_customer_section">
+        <div class="form-inline">
+            <div class="form-group">
+                <label class="control-label" for="search_customer_input">地区/客户名</label>
+                <input class="form-control" type="text" placeholder="地区/客户名" id="search_customer_input">
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-primary" id="search_customer_submit">查询</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="row col-md-9 col-xs-9 col-md-push-1 col-xs-push-1" id="cust_rank_title">
+        <table class="table table-striped">
+            <thead>
+            <th></th>
+            <th width="120px">地区</th>
+            <th width="120px">客户名</th>
+            <th width="120px">余额</th>
+            <th></th>
+            </thead>
+        </table>
+    </section>
+
+    <section class="row col-md-9 col-xs-9 col-md-push-1 col-xs-push-1" id="cust_rank_body">
+        <table class="table table-striped">
+            <tbody class=" action_warning">
+            {% for foo in cust_rank %}
+                <tr cust_id="{{ foo.cust_id }}">
+                    <td></td>
+                    <td width="120px">{{ foo.cust_info.cust_location }}</td>
+                    <td width="120px">{{ foo.cust_info.cust_name }}</td>
+                    <td width="120px" class="change_balance"><span class="change_balance_num">{{ foo.balance }}</span></td>
+                    <td></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
+{% endblock %}

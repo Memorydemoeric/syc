@@ -1,0 +1,124 @@
+{% extends 'base_main.html' %}
+{% load static %}
+
+{% block ex_css %}
+    <link rel="stylesheet" href="{% static 'css/storage_manage.css' %}">
+{% endblock %}
+
+{% block ex_js %}
+    <script type="text/javascript" src="{% static 'js/storage_manage.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap_confirm.js' %}"></script>
+{% endblock %}
+
+{% block header %}
+    <nav class="col-md-1  navbar navbar-default" id="main_navigate">
+        <div class="container-fluid">
+            <ul class="nav nav-pills nav-stacked">
+                <!-- 这里的active属性就是使得所在的li的背景色变为蓝色-->
+                <li><a href="/plan/create_plan/">生产管理</a></li>
+                <li><a href="/purchase/">销售管理</a></li>
+                <li class="active"><a href="/storage/">库存管理</a></li>
+                <li><a href="/report/">报表管理</a></li>
+                <li><a href="/info/">基本资料</a></li>
+                <li><a href="/system/">系统维护</a></li>
+            </ul>
+        </div>
+    </nav>
+
+{% endblock %}
+
+{% block body %}
+
+    <nav class="col-md-3  navbar">
+        <ul class="nav nav-pills">
+            <li role="presentation" style="margin: 0rem" class="active"><a href="/storage/product_storage/">成品</a></li>
+            <li role="presentation" style="margin: 0rem"><a href="/storage/half_storage/">半成品</a></li>
+            <li role="presentation" style="margin: 0rem"><a href="/storage/all_storage/">全部</a></li>
+
+        </ul>
+    </nav>
+
+    <section class="col-md-4" id="search_storage_detail">
+        <form class="form-inline" action="/storage/product_storage/" method="post" id="storage_form">
+            <div class="form-group">
+                <label for="pro_id">商品编号：</label>
+                <input type="text" class="form-control" name="pro_id" id="pro_id" placeholder="请输入商品编号">
+            </div>
+            <button type="submit" class="btn btn-primary" id="storage_detail_submit">查询</button>
+            <button type="button" class="btn btn-primary" id="storage_product_detail_edit">批量修改</button>
+        </form>
+
+    </section>
+
+    <section class="col-md-9" id="storage_detail_title">
+        <table class="table table-striped" id="pur_order_detail_head">
+            <thead>
+            <th width="10%">商品编号</th>
+
+            {% if order == '1' %}
+                <th width="15%">数量 <a href="?order_by_count=2"><span class="glyphicon glyphicon-arrow-up"></span></a>
+                </th>
+            {% elif order == '2' %}
+                <th width="15%">数量 <a href="?order_by_count=0"><span class="glyphicon glyphicon-arrow-down"></span></a>
+                </th>
+            {% else %}
+                <th width="15%">数量 <a href="?order_by_count=1"><span class="glyphicon glyphicon-minus"></span></a></th>
+            {% endif %}
+
+            <th width="15%">类型</th>
+            <th width="15%">单价成本</th>
+            <th width="15%">总成本</th>
+            <th width="15%">销售单价</th>
+            <th width="15%">操作</th>
+            </thead>
+        </table>
+    </section>
+
+
+    <section class="col-md-9" id="storage_detail">
+        <table class="table table-striped" id="storage_detail_body">
+            <tbody class="action_warning">
+            {% for foo in storage_product_info %}
+                {% if foo.pro_count >= 0 %}
+                    <tr style="color: green;">
+                        <td width="10%">{{ foo.pro_id }}</td>
+                        <td id="{{ foo.pro_id }}" width="15%">{{ foo.pro_count|floatformat:0 }}</td>
+                        <td width="15%">{{ foo.pro_type }}</td>
+                        <td width="15%">{{ foo.pro_unit_cost|floatformat:2 }}</td>
+                        <td width="15%">{{ foo.product_total_cost|floatformat:2 }}</td>
+                        <td width="15%">{{ foo.pro_unit_price|floatformat:2 }}</td>
+                        <td width="15%"><span type="product" pro_id="{{ foo.pro_id }}" class="edit_storage_detail"
+                        >修改</span>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr style="color: red;">
+                        <td width="10%">{{ foo.pro_id }}</td>
+                        <td id="{{ foo.pro_id }}" width="15%">{{ foo.pro_count|floatformat:0 }}</td>
+                        <td width="15%">{{ foo.pro_type }}</td>
+                        <td width="15%">{{ foo.pro_unit_cost|floatformat:2 }}</td>
+                        <td width="15%">{{ foo.product_total_cost|floatformat:2 }}</td>
+                        <td width="15%">{{ foo.pro_unit_price|floatformat:2 }}</td>
+                        <td width="15%"><span type="product" pro_id="{{ foo.pro_id }}" class="edit_storage_detail"
+                        >修改</span>
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+    <section class="col-md-9" id="storage_detail_footer">
+        <table class="table table-striped">
+            <tfoot>
+            <th>合计：{{ total|floatformat:0 }} 个</th>
+            </tfoot>
+        </table>
+    </section>
+
+
+
+
+
+{% endblock %}

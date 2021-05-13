@@ -1,0 +1,94 @@
+{% extends 'base_main.html' %}
+{% load static %}
+
+{% block ex_css %}
+    <link rel="stylesheet" href="{% static 'css/customer_info.css' %}">
+{% endblock %}
+
+{% block ex_js %}
+    <script type="text/javascript" src="{% static 'js/customer_info.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap_confirm.js' %}"></script>
+{% endblock %}
+
+{% block header %}
+    <nav class="col-md-1  navbar navbar-default" id="main_navigate">
+        <div class="container-fluid">
+            <ul class="nav nav-pills nav-stacked">
+                <!-- 这里的active属性就是使得所在的li的背景色变为蓝色-->
+                <li><a href="/plan/create_plan/">生产管理</a></li>
+                <li><a href="/purchase/">销售管理</a></li>
+                <li><a href="/storage/">库存管理</a></li>
+                <li><a href="/report/">报表管理</a></li>
+                <li class="active"><a href="/info/">基本资料</a></li>
+                <li><a href="/system/">系统维护</a></li>
+            </ul>
+        </div>
+    </nav>
+
+{% endblock %}
+
+{% block body %}
+
+    <section class="col-md-5" id="add_customer">
+        <div class="form-inline" id="input_alert">
+            <div class="form-group">
+                <label for="cust_location">查询：</label>
+                <input type="text" class="form-control" name="cust_location" id="cust_location" placeholder="请输入地区/客户姓名">
+            </div>
+            <button type="button" class="btn btn-primary ctr_btn" id="search_cust">查询</button>
+            <button type="button" class="btn btn-primary ctr_btn" id="create_customer">添加</button>
+            <button type="button" class="btn btn-primary ctr_btn" id="input_customer">导入</button>
+            <input type="file" id="file_upload" accept="application/vnd.ms-excel" style="display: none;">
+        </div>
+        <div class="alert alert-danger" class="form-group" role="alert"
+             style="visibility: hidden;width: 30rem;height: 1rem;line-height: 0.5rem;margin: 0.1rem;" id="alert_win">
+            输入的产品编号已存在
+        </div>
+    </section>
+
+    <section class="col-md-9" id="customer_detail_title">
+        <table class="table table-striped">
+            <thead>
+            <th width="10%">地区</th>
+            <th width="10%">姓名</th>
+            <th width="10%">联系电话</th>
+            <th width="10%">座机</th>
+            <th width="35%">地址</th>
+            <th width="5%">折扣 %</th>
+            <th width="20%">操作</th>
+            </thead>
+        </table>
+    </section>
+
+
+    <section class="col-md-9" id="customer_detail">
+        <table class="table table-striped" id="customer_info">
+            <tbody class="action_warning">
+            {% for foo in cust_info %}
+                <tr id="row_{{ foo.id }}">
+                    <td width="10%"><span id="input_cust_location_{{ foo.id }}">{{ foo.cust_location }}</span></td>
+                    <td width="10%"><span id="cust_name_{{ foo.id }}">{{ foo.cust_name }}</span></td>
+                    <td width="10%"><span id="cust_mobilephone_{{ foo.id }}">{{ foo.cust_mobilephone }}</span></td>
+                    <td width="10%"><span id="cust_phone_{{ foo.id }}">{{ foo.cust_phone }}</span></td>
+                    <td width="35%"><span id="cust_address_{{ foo.id }}">{{ foo.cust_address }}</span></td>
+                    <td width="5%"><span id="cust_rebate_{{ foo.id }}">{{ foo.cust_rebate }}</span></td>
+                    <td width="20%"><span cust_id="{{ foo.id }}" class="edit_customer_detail"
+                    >修改</span>&nbsp;&nbsp;|&nbsp;&nbsp;<span class="delete_customer_detail">删除</span>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+    <section class="col-md-9" id="customer_detail_footer">
+        <table class="table table-striped">
+            <tfoot>
+            <th></th>
+            </tfoot>
+        </table>
+    </section>
+
+
+
+{% endblock %}

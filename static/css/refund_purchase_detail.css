@@ -1,0 +1,35 @@
+#refund_detail li {
+    margin: 0 0 5rem 0;
+    text-align: left;
+    font-size: 2rem;
+}
+
+#form_input {
+    margin: 3rem 0;
+    float: right;
+}
+
+#form_input label, button {
+    margin: 0 0 0 2rem;
+}
+
+#refund_detail_list_head th,#refund_detail_list_foot th,#refund_detail_list_body td {
+    text-align: center;
+}
+
+#refund_detail_list_body_section {
+    height: 40rem;
+}
+
+#refund_detail_list_body_section {
+    overflow: auto;
+}
+
+th td {
+    padding: 0;
+}
+
+.del_refund {
+    cursor: pointer;
+    color: #337ab9;
+}

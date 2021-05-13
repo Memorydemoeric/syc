@@ -1,0 +1,81 @@
+td, th {
+    text-align: center;
+}
+
+
+#add_order {
+    padding: 0 2rem;
+    margin: 2rem 2rem;
+}
+
+
+.del_order,.modify_order {
+    color: #337ab9;
+    cursor: pointer;
+}
+
+
+#order_title {
+    width: 84%;
+    padding: 0 2rem;
+    margin: 0 2rem;
+}
+
+
+#order_body {
+    width: 85%;
+    height: 15rem;
+    padding: 0 2rem;
+    margin: 0 2rem;
+    overflow-y: scroll;
+}
+
+
+#order_detail_title {
+    width: 84%;
+    height: 4rem;
+    padding: 0 2rem;
+    margin: 0 2rem;
+}
+
+#order_detail {
+    width: 84%;
+    height: 35rem;
+    padding: 0 2rem;
+    margin: 0 2rem;
+    overflow-y: scroll;
+}
+
+#order_detail_footer {
+    width: 84%;
+    height: 4rem;
+    padding: 0 2rem 5rem 2rem;
+    margin: 0.5rem 2rem;
+}
+
+#file_in {
+    display: none;
+}
+
+#all_select,.per_select {
+    width: 1.5rem;
+    height: 1.5rem;
+    position: relative;
+    top: 0.2rem;
+}
+
+#pur_order_detail_foot {
+    width: 84%;
+    height: 4rem;
+    padding: 0 2rem;
+    margin: 0 2rem;
+}
+
+#produce_report,#product_out {
+    margin: 2rem 1rem;
+}
+
+.modify_date {
+    cursor: pointer;
+}
+

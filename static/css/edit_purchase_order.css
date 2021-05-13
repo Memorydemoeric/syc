@@ -1,0 +1,72 @@
+td, th {
+    text-align: center;
+}
+
+#main_navigate {
+    position: relative;
+    left: 15px;
+}
+
+#add_order {
+    float: left;
+    padding: 0 2rem;
+    margin: 2rem auto;
+}
+
+.del_order, .modify_order, .purchase_detail_delete, #modify_date {
+    color: #337ab9;
+    cursor: pointer;
+}
+
+#order {
+    float: left;
+    width: 84%;
+    height: 10rem;
+    padding: 0 2rem;
+    margin: 0 auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+section table, section>div {
+    margin: 0 3rem;
+}
+
+#order_detail_title {
+    float: left;
+    width: 84%;
+    height: 4rem;
+    padding: 0 2rem;
+    margin: 0 auto;
+}
+
+#order_detail {
+    float: left;
+    width: 85%;
+    height: 40rem;
+    padding: 0 2rem;
+    margin: 0 auto;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+#order_detail_footer {
+    float: left;
+    width: 84%;
+    height: 4rem;
+    padding: 0 2rem;
+    margin: 0 auto;
+}
+
+#file_in {
+    display: none;
+}
+
+#predict_freight {
+    width: 10rem;
+}
+
+#enter {
+    color: #337ab9;
+    cursor: pointer;
+}

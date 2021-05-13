@@ -1,0 +1,71 @@
+{% extends 'base_main.html' %}
+{% load static %}
+
+{% block ex_css %}
+    <link rel="stylesheet" href="{% static 'css/statement.css' %}">
+{% endblock %}
+
+{% block ex_js %}
+    <script type="text/javascript" src="{% static 'js/bootstrap_confirm.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/statement.js' %}"></script>
+{% endblock %}
+
+{% block header %}
+    <nav class="col-md-1  navbar navbar-default" id="main_navigate">
+        <div class="container-fluid">
+            <ul class="nav nav-pills nav-stacked">
+                <!-- 这里的active属性就是使得所在的li的背景色变为蓝色-->
+                <li><a href="/plan/create_plan/">生产管理</a></li>
+                <li><a href="/purchase/">销售管理</a></li>
+                <li><a href="/storage/">库存管理</a></li>
+                <li class="active"><a href="/report/">报表管理</a></li>
+                <li><a href="/info/">基本资料</a></li>
+                <li><a href="/system/">系统维护</a></li>
+            </ul>
+        </div>
+    </nav>
+{% endblock %}
+
+
+{% block body %}
+    <section class="col-md-10" id="point_customer">
+        <form action="" class="form-inline" method="post">
+            <div class="form-group">
+                <label for="cust_condition">地区：</label>
+                <input class="form-control" type="text" id="cust_condition" name="cust_condition" placeholder="请输入查询条件"
+                       value="{{ cust_condition }}">&nbsp;&nbsp;&nbsp;&nbsp;
+                <label for="cust_info">客户名：</label>
+                <select class="form-control" name="cust_id" id="cust_info"style="width: 10rem">
+                    {% for foo in cust_info %}
+                        <option value="{{ foo.cust_id }}">{{ foo.cust_info.cust_name }}</option>
+                    {% endfor %}
+                </select>&nbsp;&nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-primary" id="cust_id_submit">查看</button>
+            </div>
+        </form>
+    </section>
+
+
+    <section class="col-md-10" id="cust_info_title">
+        <span>历史记录</span>
+    </section>
+    <section class="col-md-10" id="history_list">
+        <ul>
+            {% for foo in cust_rank_info %}
+                <li class="cust_rank" cust_id="{{ foo.cust_id }}">
+                    <div class="btn btn-default">
+                        <ul class="history_cust_info">
+                            <li>地区：{{ foo.cust_info.cust_location }}</li>
+                            <li>姓名：{{ foo.cust_info.cust_name }}</li>
+                            <br>
+                            <li>余额：{{ foo.balance|floatformat:2 }}</li>
+                            <br>
+                            <li>修改时间：{{ foo.latest_pur_date|date }}</li>
+                        </ul>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
+
+{% endblock %}

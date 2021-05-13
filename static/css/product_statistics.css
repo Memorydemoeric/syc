@@ -1,0 +1,21 @@
+#search_time_form {
+    float: right;
+    margin-bottom: 2.5rem;
+}
+
+#search_time_form {
+    margin-right: 5rem;
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+th, td {
+    text-align: center;
+}
+
+#report_statistics_body_section {
+    overflow-y: scroll;
+    height: 60rem;
+}

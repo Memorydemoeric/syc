@@ -1,0 +1,103 @@
+{% extends 'base_main.html' %}
+{% load static %}
+{% block ex_css %}
+    <link rel="stylesheet" href="{% static 'css/create_purchase_order.css' %}">
+{% endblock %}
+
+{% block ex_js %}
+    <script type="text/javascript" src="{% static 'js/create_purchase_order.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap_confirm.js' %}"></script>
+{% endblock %}
+
+{% block header %}
+    <nav class="col-md-1  navbar navbar-default" id="main_navigate">
+        <div class="container-fluid">
+            <ul class="nav nav-pills nav-stacked">
+                <!-- 这里的active属性就是使得所在的li的背景色变为蓝色-->
+                <li><a href="/plan/create_plan/">生产管理</a></li>
+                <li class="active"><a href="/purchase/">销售管理</a></li>
+                <li><a href="/storage/">库存管理</a></li>
+                <li><a href="/report/">报表管理</a></li>
+                <li><a href="/info/">基本资料</a></li>
+                <li><a href="/system/">系统维护</a></li>
+            </ul>
+        </div>
+    </nav>
+
+{% endblock %}
+
+{% block body %}
+    <section class="col-md-10" id="add_order">
+        <form class="form-inline" action="/purchase/create_pur/" method="post">
+            <div class="form-group">
+                <label for="location">地区：</label>
+                <input type="text" class="form-control" name="pur_location_name" id="location" placeholder="请输入地区">
+            </div>
+            <div class="form-group">
+                <label for="cust_name">　客户姓名：</label>
+                <select class="form-control" id="cust_name" name="pur_cust_name">
+                    {% for foo in cust_info %}
+                        <option name="{{ foo.id }}" value="{{ foo.id }}">{{ foo.cust_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <input type="number" style="display: none" value="{{ cust_info.0.id }}" id="secret_cust_id" name="cust_id">
+            <div class="form-group">
+                <label for="pre_date">　订单日期：</label>
+                <input type="date" class="form-control" id="pre_date" placeholder="请选择订单日期" name="pur_modify_date"
+                       value="{{ now }}">
+            </div>
+            <div class="form-group">
+                <label for="handle">　经手人：</label>
+                <select class="form-control" id="handle" name="pur_handle">
+                    {% for usr in user_info %}
+                        <option>{{ usr.user_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            　　
+            <button type="submit" class="btn btn-primary">创建</button>
+        </form>
+    </section>
+
+    <section class="col-md-9" id="order">
+        <table class="table table-striped" id="pur_order">
+            <thead>
+            <th width="7.5%">订单编号</th>
+            <th width="7.5%">地区</th>
+            <th width="10%">客户姓名</th>
+            <th width="10%">备注</th>
+            <th width="7.5%">金额</th>
+            <th width="7.5%">提货金额</th>
+            <th width="12.5%">订单创建时间</th>
+            <th width="7.5%">经手人</th>
+            <th width="30%">操作</th>
+            </thead>
+            <tbody class="action_warning">
+            {% for order in pur_orders %}
+                <tr name="order_{{ order.id }}" title="{{ order.rebate }}%">
+                    <td>{{ order.id }}</td>
+                    <td>{{ order.cust_info.cust_location }}</td>
+                    <td>{{ order.cust_info.cust_name }}</td>
+                    <td><span id="comment_{{ order.id }}">{{ order.pur_comment }}</span></td>
+                    <td>{{ order.pur_price|floatformat:2 }}</td>
+                    <td>{{ order.actual_price|floatformat:2 }}</td>
+                    <td>{{ order.pur_modify_date|date:'Y年m月d日' }}</td>
+                    <td>{{ order.pur_handle }}</td>
+                    <td><a name="order_{{ order.id }}" class="modify_order"
+                           href="/purchase/edit_pur/?ord_id={{ order.id }}">修改</a>&nbsp;|&nbsp;<span
+                            name="order_{{ order.id }}" class="del_order" order_id="{{ order.id }}">删除</span>&nbsp;|&nbsp;<span
+                            name="order_{{ order.id }}" class="comment_order" order_id="{{ order.id }}">添加备注</span>&nbsp;|&nbsp;<a
+                            href="/purchase/output_statement/?cust_id={{ order.cust_id }}&pur_id={{ order.id }}"
+                            target="_blank">导出对账单</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+
+
+
+{% endblock %}

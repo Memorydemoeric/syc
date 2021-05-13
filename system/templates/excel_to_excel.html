@@ -1,0 +1,40 @@
+{% extends 'base_main.html' %}
+{% load static %}
+
+{% block ex_css %}
+    <link rel="stylesheet" href="{% static 'css/excel_to_excel.css' %}">
+{% endblock %}
+
+{% block ex_js %}
+    <script type="text/javascript" src="{% static 'js/bootstrap_confirm.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/excel_to_excel.js' %}"></script>
+{% endblock %}
+
+{% block header %}
+    <nav class="col-md-1  navbar navbar-default" id="main_navigate">
+        <div class="container-fluid">
+            <ul class="nav nav-pills nav-stacked">
+                <!-- 这里的active属性就是使得所在的li的背景色变为蓝色-->
+                <li><a href="/plan/create_plan/">生产管理</a></li>
+                <li><a href="/purchase/">销售管理</a></li>
+                <li><a href="/storage/">库存管理</a></li>
+                <li><a href="/report/">报表管理</a></li>
+                <li><a href="/info/">基本资料</a></li>
+                <li class="active"><a href="/system/">系统维护</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="col-md-9">
+        <ul>
+            <span id="change_purchase">
+                <li class="col-md-2"><img src="{% static 'img/icon.jpg' %}" alt="" class="img-circle"></br>
+                    <span>订单转换</span></li>
+            </span>
+
+        </ul>
+    </div>
+
+    <input type="file" style="display: none;" id="file_upload" accept="application/vnd.ms-excel">
+    <a id="translation_download" href="/system/translate_file_down/" target="_blank"></a>
+{% endblock %}

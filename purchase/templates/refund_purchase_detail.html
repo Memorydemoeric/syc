@@ -1,0 +1,83 @@
+{% extends 'base_main.html' %}
+{% load static %}
+
+{% block ex_css %}
+    <link rel="stylesheet" href="{% static 'css/refund_purchase_detail.css' %}">
+{% endblock %}
+
+
+{% block ex_js %}
+    <script type="text/javascript" src="{% static 'js/bootstrap_confirm.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/refund_purchase_detail.js' %}"></script>
+{% endblock %}
+
+{% block header %}
+    <nav class="col-md-1  navbar navbar-default" id="main_navigate">
+        <div class="container-fluid">
+            <ul class="nav nav-pills nav-stacked">
+                <!-- 这里的active属性就是使得所在的li的背景色变为蓝色-->
+                <li><a href="/plan/create_plan/">生产管理</a></li>
+                <li class="active"><a href="/purchase/">销售管理</a></li>
+                <li><a href="/storage/">库存管理</a></li>
+                <li><a href="/report/">报表管理</a></li>
+                <li><a href="/info/">基本资料</a></li>
+                <li><a href="/system/">系统维护</a></li>
+            </ul>
+        </div>
+    </nav>
+{% endblock %}
+
+{% block body %}
+    <section class="col-md-10 form-inline">
+        <div class="col-md-7 form-group" id="form_input">
+            <label for="pro_id">产品编号：</label>
+            <input type="text" id="pro_id" class="form-control">
+            <label for="pro_count">数量：</label>
+            <input type="number" id="pro_count" class="form-control">
+            <button type="button" class="btn btn-primary" id="add_refund">添加</button>
+            <button type="button" class="btn btn-primary" id="submit_refund">提交</button>
+        </div>
+    </section>
+
+    <section class="col-md-10">
+        <ul id="refund_detail">
+            <li id="cust_info" cust_id="{{ cust_info.id }}">客户信息：&nbsp;&nbsp;{{ cust_info.cust_location }}&nbsp;&nbsp;&nbsp;&nbsp;{{ cust_info.cust_name }}</li>
+        </ul>
+    </section>
+
+    <section class="col-md-10">
+        <table class="col-md-12 table table-striped" id="refund_detail_list_head">
+            <thead>
+            <th width="30%">产品编号</th>
+            <th width="30%">数量</th>
+            <th width="40%">操作</th>
+            </thead>
+        </table>
+    </section>
+
+    <section class="col-md-10" id="refund_detail_list_body_section">
+        <table class="table table-striped" id="refund_detail_list_body">
+            <tbody class="action_warning">
+            {% for foo in refund_purchase_detail %}
+                <tr>
+                    <td width="30%">{{ foo.0 }}</td>
+                    <td width="30%">{{ foo.1|floatformat:0 }}</td>
+                    <td width="40%"><span class="del_refund" pro_id="{{ foo.0 }}">删除</span></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+    <section class="col-md-10">
+        <table class="col-md-12 table table-striped" id="refund_detail_list_foot">
+
+            <tfoot>
+            <th width="30%">合计</th>
+            <th width="30%">{{ total_count }}个</th>
+            <th width="40%"></th>
+            </tfoot>
+
+        </table>
+    </section>
+{% endblock %}

@@ -1,0 +1,115 @@
+{% extends 'base_main.html' %}
+{% load static %}
+
+{% block ex_css %}
+    <link rel="stylesheet" href="{% static 'css/report_list.css' %}">
+{% endblock %}
+
+{% block ex_js %}
+    <script type="text/javascript" src="{% static 'js/report_list_order.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap_confirm.js' %}"></script>
+{% endblock %}
+
+{% block header %}
+    <nav class="col-md-1  navbar navbar-default" id="main_navigate">
+        <div class="container-fluid">
+            <ul class="nav nav-pills nav-stacked">
+                <!-- 这里的active属性就是使得所在的li的背景色变为蓝色-->
+                <li><a href="/plan/create_plan/">生产管理</a></li>
+                <li><a href="/purchase/">销售管理</a></li>
+                <li><a href="/storage/">库存管理</a></li>
+                <li class="active"><a href="/report/">报表管理</a></li>
+                <li><a href="/info/">基本资料</a></li>
+                <li><a href="/system/">系统维护</a></li>
+            </ul>
+        </div>
+    </nav>
+
+{% endblock %}
+
+{% block body %}
+
+    <section class="col-md-7" id="search_storage_detail">
+        <form class="form-inline" method="post" action="/report/report_list_order/" id="storage_form">
+            <div class="form-group">
+                <label for="pro_id">地区&nbsp;&nbsp;/&nbsp;&nbsp;客户名：</label>
+                <input type="text" class="form-control" name="cust_condition" id="cust_condition" placeholder="请输入查询条件"
+                       value="{{ location }}">&nbsp;&nbsp;
+                <label for="pro_id">&nbsp;&nbsp;时间：</label>
+                <input type="date" class="form-control" name="date_start" id="date_start" placeholder="请输入起始日期"
+                       value="{{ date_start }}">
+                <label for="pro_id">&nbsp;&nbsp;至&nbsp;&nbsp;</label>
+                <input type="date" class="form-control" name="date_end" id="date_end" placeholder="请输入结束日期"
+                       value="{{ date_end }}">
+            </div>
+            <button type="submit" class="btn btn-primary" id="storage_detail_submit">查询</button>
+        </form>
+    </section>
+
+    <section class="col-md-9" id="storage_detail_title">
+        <table class="table table-striped" id="pur_order_detail_head">
+            <thead>
+            <th></th>
+            <th width="120px">订单编号</th>
+            <th width="120px">数量</th>
+            <th width="120px">地区</th>
+            <th width="120px">客户</th>
+            <th width="150px">备注</th>
+            <th width="120px">提货金额</th>
+            <th width="180px">出库时间</th>
+            <th width="120px">经手人</th>
+            <th width="200px">操作</th>
+            <th></th>
+            </thead>
+        </table>
+    </section>
+
+
+    <section class="col-md-9" id="storage_detail">
+        <table class="table table-striped" id="storage_detail_body">
+            <tbody class="action_warning">
+            {% for foo in storage_out %}
+                <tr>
+                    <td></td>
+                    <td width="120px">{{ foo.pur_id }}</td>
+                    <td width="120px">{{ foo.total_count|floatformat:0 }}</td>
+                    <td width="120px">{{ foo.cust_info.cust_location }}</td>
+                    <td width="120px">{{ foo.cust_info.cust_name }}</td>
+                    <td width="150px">{{ foo.pur_comment }}</td>
+                    <td width="120px">{{ foo.storage_actual_price|floatformat:2 }}</td>
+                    <td width="180px">{{ foo.storage_create_date }}</td>
+                    <td width="120px">{{ foo.pur_handler }}</td>
+                    <td width="200px"><a class="storage_detail"
+                                       href="/report/report_storage_out_detail/?order_id={{ foo.pur_id }}"
+                                       target="_blank">订单详情</a><span>&nbsp;&nbsp;|&nbsp;&nbsp;</span><a href="">导出对账单</a>
+                    </td>
+                    <td></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+    <section class="col-md-9" id="storage_detail_footer">
+        <table class="table table-striped">
+            <tfoot>
+            <th></th>
+            <th width="120px">合计：</th>
+            <th width="120px">{{ addition_count|floatformat:0 }}</th>
+            <th width="120px"></th>
+            <th width="120px"></th>
+            <th width="150px"></th>
+            <th width="120px">{{ addition_price|floatformat:2 }}</th>
+            <th width="180px"></th>
+            <th width="120px"></th>
+            <th width="200px"></th>
+            <th></th>
+            </tfoot>
+        </table>
+    </section>
+
+
+
+
+
+{% endblock %}

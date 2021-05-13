@@ -1,0 +1,50 @@
+{% extends 'base_main.html' %}
+{% load static %}
+
+{% block ex_js %}
+    <script type="text/javascript" src="{% static 'js/bootstrap_confirm.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/system_manage.js' %}"></script>
+{% endblock %}
+
+{% block header %}
+    <nav class="col-md-1  navbar navbar-default" id="main_navigate">
+        <div class="container-fluid">
+            <ul class="nav nav-pills nav-stacked">
+                <!-- 这里的active属性就是使得所在的li的背景色变为蓝色-->
+                <li><a href="/plan/create_plan/">生产管理</a></li>
+                <li><a href="/purchase/">销售管理</a></li>
+                <li><a href="/storage/">库存管理</a></li>
+                <li><a href="/report/">报表管理</a></li>
+                <li><a href="/info/">基本资料</a></li>
+                <li class="active"><a href="/system/">系统维护</a></li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <div class="col-md-9" id="main_content1">
+        <ul>
+            <a href="/system/excel_to_excel/">
+                <li class="col-md-2"><img src="{% static 'img/icon.jpg' %}" alt="" class="img-circle"></br>
+                    <span>表格转换</span></li>
+            </a>
+            <a href="/system/show_original_balance/">
+                <li class="col-md-2"><img src="{% static 'img/icon.jpg' %}" alt="" class="img-circle"></br>
+                    <span>修改余额</span></li>
+            </a>
+        </ul>
+    </div>
+
+    <div class="col-md-9" id="main_content1">
+        <ul>
+            <a href="" id="power_off">
+                <li class="col-md-2"><img src="{% static 'img/icon.jpg' %}" alt="" class="img-circle"></br>
+                    <span>关闭系统</span></li>
+            </a>
+            <a href="" id="clear_temp">
+                <li class="col-md-2"><img src="{% static 'img/icon.jpg' %}" alt="" class="img-circle"></br>
+                    <span>清理缓存</span></li>
+            </a>
+        </ul>
+    </div>
+{% endblock %}
